@@ -19,20 +19,21 @@
     </div>
 
     <div class="content">
-      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      <time >  </time>
     </div>
   </div>
 </div>
 </template>
 
 <script>
+
 import session from "@/models/session";
 
 export default {
   props: {
     post: Object,
     i: Number
-  }
+  },
 }
 </script>
 
