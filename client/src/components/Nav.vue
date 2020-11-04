@@ -11,10 +11,11 @@
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu" :class = "{ 'is-active': isActive }" @click = "isActive = !isActive" >
-      
-      <router-link to="/" id = "button" class = "button"><i id= "icon2" class = "fas fa-home" ></i>Home</router-link>
-      <router-link to="/feed"  id = "button" class="button"> Feed</router-link>
+  <div id="navbarBasicExample" class="navbar-menu" :class ="{ 'is-active': isActive }" @click ="isActive = !isActive" >
+          <div class="navbar-start">
+          <router-link to="/" class="navbar-item"> <i id= "icon2" class = "fas fa-home" ></i>Home</router-link>
+          <router-link to="/feed" class="navbar-item" >Feed</router-link>
+      </div>
     <div class="navbar-end">
         <LoginBadge/>
         <router-link/>
