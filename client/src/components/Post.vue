@@ -19,7 +19,13 @@
             <p class="title is-4"> {{post.owner.name}} </p>
             <p class="subtitle is-6">@{{post.owner.handle}}</p>
             <div id="edit" contentEditable="false">
-                  {{post.message}}
+              {{post.message}}
+            </div>
+            <div >
+             <p> Exercise Name: </p> 
+             {{post.exercise}}
+             <p> Location: </p> 
+             {{post.location}}
             </div>
             <!-- ask how to make only one button for each post show up, and for edit button to
             edit specific post-->
@@ -56,7 +62,7 @@ export default {
         deletePost(j){
           feed.deletePost(j);
         },
-                        editPost(i){
+        editPost(i){
           var x = document.getElementById('edit').contentEditable;
           if(x == 'inherit' || x == 'false'){
             document.getElementById('edit').contentEditable = true;
@@ -81,6 +87,9 @@ export default {
   margin-bottom: 5px;
 }
 .input{
+  font-weight: bold;
+}
+p{
   font-weight: bold;
 }
 </style>
