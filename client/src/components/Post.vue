@@ -21,11 +21,13 @@
             <div id="edit" contentEditable="false">
                   {{post.message}}
             </div>
+            <!-- ask how to make only one button for each post show up, and for edit button to
+            edit specific post-->
             <div class="content">
                 <div v-for="(x,i) in feed.post" :key="i" 
                     :class="`is-${x.type}`" >
-                    <button class="button" id= "btn2" @click="deletePost(i)"> Delete </button>
                     <button class="button" id="edit2" @click ="editPost(i)"> Edit </button>
+                    <button class="button" id= "btn2" @click="deletePost(i)"> Delete </button>
                     {{x.text}}
                 </div>
             </div> 

@@ -26,7 +26,7 @@ const posts= {
     },
     addPost(text, url){ 
         var x = text;
-        var z = url;
+        var z = url; //will be used for image url 
         this.post.push({
             url : 'https://static.scientificamerican.com/sciam/cache/file/D842F65B-7883-4130-B48F397EFB4B1D8C_source.jpg?w=590&h=800&41C22102-27DE-4E35-BCF4BE11A87917C4',
             message : x,
