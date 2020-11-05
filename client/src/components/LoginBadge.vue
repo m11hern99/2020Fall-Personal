@@ -10,11 +10,11 @@
       </span>
     </button>
   </div>
-  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+  <div class="dropdown-menu" id="dropdown-menu" role="menu" >
       <router-link to="/login"  id = "button" class="button">Sign Out</router-link>
   </div>
 </div>
-    </div>
+</div>
 
 
 
@@ -38,9 +38,6 @@ export default {
         isActive : false
     }),
     methods: {
-    signout(){
-
-      }
     }
 }
 </script>
