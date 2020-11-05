@@ -1,30 +1,11 @@
 <template>
   <div class="card">
-    <div class=posting>
-      <textarea class="textarea" id= "message" placeholder="Enter Excersize"></textarea>
-      <div class="file">
-        <label class="file-label">
-          <input class="file-input" type="file" name="resume">
-            <span class="file-cta">
-              <span class="file-icon">
-                <i class="fas fa-upload"></i>
-              </span>
-              <span class="file-label">
-                Choose a file…
-              </span>
-            </span>
-        </label>
-
-        <button class="button" @click="addPost()"> Post </button>
-      </div>
-    </div>
     
     <div class="card-image">
         <figure class="image is-4by3">
           <img :src="post.url" alt="picture">
         </figure>
     </div>
-
     <div class="card-content">
 
       <div class="media">
@@ -37,18 +18,20 @@
         <div class="media-content">
             <p class="title is-4"> {{post.owner.name}} </p>
             <p class="subtitle is-6">@{{post.owner.handle}}</p>
-            <p class="subtitle is-6">{{post.message}}</p>
+            <div id="edit" contentEditable="false">
+                  {{post.message}}
+            </div>
+            <div class="content">
+                <div v-for="(x,i) in feed.post" :key="i" 
+                    :class="`is-${x.type}`" >
+                    <button class="button" id= "btn2" @click="deletePost(i)"> Delete </button>
+                    <button class="button" id="edit2" @click ="editPost(i)"> Edit </button>
+                    {{x.text}}
+                </div>
+            </div> 
+
         </div>
       </div>
-      <div class="content">
-        <div    v-for="(x,i) in feed.post" :key="i"
-          :class="`is-${x.type}`">
-           <button align=right class="button" @click="deletePost(i)"> Delete </button>
-           <button align=right class="button"> Edit </button>
-          {{x.text}}
-        </div>
-      </div> 
-
     </div> 
 
   </div>
@@ -59,26 +42,32 @@
 import feed from "@/models/feed";
 import session from "@/models/session";
 
-
 export default {
   props: {
     post: Object,
     i: Number
   },
       data: ()=> ({
-        feed
+        feed,
     }),
-    methods: {
+    methods:{
         deletePost(j){
-            feed.deletePost(j);
+          feed.deletePost(j);
         },
-        addPost(){
-
-        },
-        editPost(){
-
+                        editPost(i){
+          var x = document.getElementById('edit').contentEditable;
+          if(x == 'inherit' || x == 'false'){
+            document.getElementById('edit').contentEditable = true;
+            document.getElementById('edit2').innerHTML = "Make Change";
+          }
+          else{
+            var text = document.getElementById('edit').innerHTML;
+            feed.editPost(i,text);
+            document.getElementById('edit2').innerHTML = "Edit";
+            document.getElementById('edit').contentEditable = false;
+          }
         }
-    },
+    }
 }
 </script>
 
@@ -88,5 +77,8 @@ export default {
 }
 .posting{
   margin-bottom: 5px;
+}
+.input{
+  font-weight: bold;
 }
 </style>

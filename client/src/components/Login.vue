@@ -29,9 +29,9 @@ export default {
   methods: {
     login(){
       session.user= {
-        name: 'John Smith',
-        handle: 'johnsmith',
-        profile:" https://images-na.ssl-images-amazon.com/images/I/31NXhN9iZoL._AC_SY355_.jpg"
+        name: 'Maria Hernandez',
+        handle: 'm11hern24',
+        profile:"https://mail.google.com/mail/u/1?ui=2&ik=fdc8bf2c36&attid=0.1&permmsgid=msg-a:r4432692003323843178&th=17589f806c709fd0&view=fimg&sz=s0-l75-ft&attbid=ANGjdJ9zbt-HM5tNOD9huzPb4NO0uv8Bsf3ES72VF0N6qlvMYr55eP2LUtuGV-8yWBk9d-glE25vT9kPGFUj8KOgBBIinuqrKm2jEE7TmkPOErQmGOizksX2vqqCEIA&disp=emb&realattid=17589f7fad245554d281"
       }
       this.$router.push('Feed');
     }

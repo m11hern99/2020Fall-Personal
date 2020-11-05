@@ -5,7 +5,7 @@
   <div class="dropdown">
     <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
       <span>{{session.user.name}}</span>
-      <span class="icon is-small">
+      <span class="icon is-small" id = "pfp">
           <img :src="session.user.profile" alt="Profile Picture">
       </span>
     </button>
@@ -46,5 +46,4 @@ export default {
 </script>
 
 <style>
-
 </style>
