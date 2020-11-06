@@ -65,6 +65,10 @@ export default {
   box-shadow: 0 0 5px pink;
   border: 1px solid pink;
 }
+#btn:focus{
+ box-shadow: 0 0 5px pink;
+  border: 1px solid pink;
+}
 #btn{
   margin-left: 200px;
 }

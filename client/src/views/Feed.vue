@@ -26,6 +26,7 @@
                 <option value="Squat">Squat</option>
                 <option value="Stretch">Stretch</option>
                 <option value="Wall Sit">Wall Sit</option>
+                <option value="Lifting">Lifting</option>
             </select>
             <label id="location" for="location">Location:</label>
                 <select id="loc" >
@@ -34,13 +35,13 @@
                 <option value="Gym">Gym</option>
                 <option value="Outside">Outside</option>
             </select>
-            <button class="button" @click="addPost()"> Post </button>
+            <button class="button" @click="addItem()"> Post </button>
         </div>
         </div>
 
         <div class="columns">
             <div class = "column is-two-third">
-                <Post v-for="(x,i) in feed.post" :key = "i" :post = "x" />
+                <Post v-for="(x,i) in feed.item" :key = "i" :item = "x" :i="i" />
             </div>
             <div class = "column is-one-third">
                 <Sidebar/>
@@ -62,12 +63,12 @@ export default {
         Sidebar
     },
     methods: {
-        addPost(){
-            var t =document.getElementById("loc").value
+        addItem(){
+            var l =document.getElementById("loc").value
             var y; // wil be used for url to image
             var z = document.getElementById("excer").value;
             var x = document.getElementById("message").value;
-            feed.addPost(x,z,y,t);
+            feed.addItem(x,z,y,l);
         },
     }
 }

@@ -2,8 +2,7 @@
   <div class="card">
     
     <div class="card-image">
-        <figure class="image is-4by3">
-          <img :src="post.url" alt="picture">
+        <figure class="image is-4by3">          <img :src="item.url" alt="picture">
         </figure>
     </div>
     <div class="card-content">
@@ -11,33 +10,29 @@
       <div class="media">
         <div class="media-left">
           <figure class="image is-48x48">
-            <img :src="post.owner.profile" alt="Profile image">
+            <img :src="item.owner.profile" alt="Profile image">
           </figure>
         </div>
 
         <div class="media-content">
-            <p class="title is-4"> {{post.owner.name}} </p>
-            <p class="subtitle is-6">@{{post.owner.handle}}</p>
-            <div id="edit" contentEditable="false">
-              {{post.message}}
+            <p class="title is-4"> {{item.owner.name}} </p>
+            <p class="subtitle is-6">@{{item.owner.handle}}</p>
+            <div ref="edit" id = "edit" contentEditable = true >
+              {{item.message}}
             </div>
             <div >
              <p> Exercise Name: </p> 
-             {{post.exercise}}
+             {{item.exercise}}
              <p> Location: </p> 
-             {{post.location}}
+             {{item.location}}
             </div>
-            <!-- ask how to make only one button for each post show up, and for edit button to
-            edit specific post-->
             <div class="content">
-                <div v-for="(x,i) in feed.post" :key="i" 
-                    :class="`is-${x.type}`" >
-                    <button class="button" id="edit2" @click ="editPost(i)"> Edit </button>
-                    <button class="button" id= "btn2" @click="deletePost(i)"> Delete </button>
-                    {{x.text}}
-                </div>
+                    <button class="button" id="btn2" @click ="editItem(i)"> Edit </button>
+                    <button class="button" id= "btn2" @click="deleteItem(i)"> Delete </button>
+               <div id ="time">
+             <i> {{item.time}} </i>
+            </div>
             </div> 
-
         </div>
       </div>
     </div> 
@@ -52,28 +47,19 @@ import session from "@/models/session";
 
 export default {
   props: {
-    post: Object,
+    item: Object,
     i: Number
   },
       data: ()=> ({
         feed,
     }),
     methods:{
-        deletePost(j){
-          feed.deletePost(j);
+        deleteItem(i){
+          feed.deleteItem(i);
         },
-        editPost(i){
-          var x = document.getElementById('edit').contentEditable;
-          if(x == 'inherit' || x == 'false'){
-            document.getElementById('edit').contentEditable = true;
-            document.getElementById('edit2').innerHTML = "Make Change";
-          }
-          else{
-            var text = document.getElementById('edit').innerHTML;
-            feed.editPost(i,text);
-            document.getElementById('edit2').innerHTML = "Edit";
-            document.getElementById('edit').contentEditable = false;
-          }
+        editItem(i){
+          //this works. find a way to make it editable on click of edit button 
+         feed.editItem(i,this.$refs.edit.innerText);
         }
     }
 }
@@ -91,5 +77,13 @@ export default {
 }
 p{
   font-weight: bold;
+}
+#time{
+  text-align: right;
+}
+#edit:focus{
+  box-shadow: 0 0 5px pink;
+  border-color: 1px solid pink;
+  outline: 0;
 }
 </style>

@@ -1,11 +1,14 @@
 import session from '@/models/session'
 const posts= { 
-    post: [
+    item: [
         {
             url: 'https://cnet4.cbsistatic.com/img/nMzkaCU4zznHp8tlIPyQd8aQOZ4=/940x0/2019/12/18/98fd63aa-d21b-49db-b0d9-570be082efed/wellness-stock-16.jpg',
             message: 'Starting the day off with some stretching!',
             exercise: 'No exercise update.',
             location: 'No location update.',
+            time: ( new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
+            + new Date().getHours() + ":"  
+            + new Date().getMinutes(),
             owner: {
                 name: 'Ygnacia Martina',
                 handle: 'ygna31',
@@ -15,8 +18,11 @@ const posts= {
         {
             url: 'https://phoeberosetta.files.wordpress.com/2012/12/are-black-women-justified-in-avoiding-exercise-due-to-hair-issues2.jpg',
             message: 'Working with dumbells today',
-            exercise: 'No exercise update.',
-            location: 'No location update.',
+            exercise: 'Lifting',
+            location: 'Home',
+            time: ( new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
+            + new Date().getHours() + ":"  
+            + new Date().getMinutes(),
             owner: {
                 name: 'Anaura Cuzman',
                 handle: 'ana19',
@@ -25,34 +31,37 @@ const posts= {
         },
         
     ],
-    deletePost(i){
-        this.post.splice(i,1);
+
+    deleteItem(i){
+        this.item.splice(i,1);
     },
-    addPost(text, exc,url,loc){ 
+    addItem(text, exc,url,loc){ 
         var x = text;
         var z = exc; 
         var t = loc;
-        var y; //will be used for image url 
+        var y; //will be used for image url, how to upload? 
         if( z == "empty"){
             z = "No exercise update.";
         }
         if( t == "empty"){
             t = "No location update.";
         }
-        this.post.unshift({
+        this.item.unshift({
             url : 'https://static.scientificamerican.com/sciam/cache/file/D842F65B-7883-4130-B48F397EFB4B1D8C_source.jpg?w=590&h=800&41C22102-27DE-4E35-BCF4BE11A87917C4',
             message : x,
             exercise: z,
             location: t,
+            time: (new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
+            + new Date().getHours() + ":"  
+            + new Date().getMinutes(),
             owner : {
                 name : session.user.name,
                 handle : session.user.handle,
                 profile : session.user.profile,
         }});
     },
-    editPost(i,x){
-        this.post[i].message = x;
-    }
-    
+    editItem(i,x){
+        this.item[i].message = x;
+      },
 };
 export default posts;

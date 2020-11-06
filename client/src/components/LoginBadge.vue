@@ -43,4 +43,8 @@ export default {
 </script>
 
 <style>
+.button:focus{
+  box-shadow: 0 0 5px pink;
+  border: 1px solid pink;
+}
 </style>

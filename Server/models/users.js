@@ -1,15 +1,13 @@
 const mysql = require('./mysql');
 
-//const data = [{ name: 'Moshe', age: 43}, { name: 'Biden', age: 78 }]
 
 async function getAll(){
-    //throw { status: 501, message: "This is a fake error" }
-    //await Promise.resolve()
-    console.log("Called Get All")
     return await mysql.query(`SELECT * FROM Users`);
 }
 
 async function get(id){
+    console.log("Called Get All")
+
     const rows = await mysql.query(`SELECT * FROM Users WHERE id=?`, [id]);
     if(!rows.length) throw { status: 404, message: "Sorry, there is no such user" };
     return rows;
