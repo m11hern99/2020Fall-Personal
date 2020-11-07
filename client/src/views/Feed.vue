@@ -1,7 +1,7 @@
 <template>
     <div class="page">
         <div class=posting>
-        <textarea class="textarea" id= "message" placeholder="Enter Exercise"></textarea>
+        <textarea class="textarea" id= "message" placeholder="Tell us about your exercise"></textarea>
         <div class="file">
             <label class="file-label">
             <input class="file-input" type="file" name="resume">
@@ -68,6 +68,9 @@ export default {
             var y; // wil be used for url to image
             var z = document.getElementById("exer").value;
             var x = document.getElementById("message").value;
+            document.getElementById("exer").selectedIndex= 0;
+            document.getElementById("loc").selectedIndex= 0;
+            document.getElementById("message").value = '';
             feed.addItem(x,z,y,l);
         },
     }

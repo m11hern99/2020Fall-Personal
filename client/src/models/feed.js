@@ -8,7 +8,7 @@ const posts= {
             location: 'No location update.',
             time: ( new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
             + new Date().getHours() + ":"  
-            + new Date().getMinutes(),
+            + new Date().getMinutes()+ ":" + new Date().getSeconds(),
             owner: {
                 name: 'Ygnacia Martina',
                 handle: 'ygna31',
@@ -22,7 +22,7 @@ const posts= {
             location: 'Home',
             time: ( new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
             + new Date().getHours() + ":"  
-            + new Date().getMinutes(),
+            + new Date().getMinutes()+ ":" + new Date().getSeconds(),
             owner: {
                 name: 'Anaura Cuzman',
                 handle: 'ana19',
@@ -53,7 +53,7 @@ const posts= {
             location: t,
             time: (new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
             + new Date().getHours() + ":"  
-            + new Date().getMinutes(),
+            + new Date().getMinutes() + ":" + new Date().getSeconds(),
             owner : {
                 name : session.user.name,
                 handle : session.user.handle,
@@ -64,9 +64,9 @@ const posts= {
         this.item[i].message = mes;
         this.item[i].exercise = ex;
         this.item[i].location = loc;
-        this.item[i].time = (new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
+        this.item[i].time = "Edited on: " + (new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
         + new Date().getHours() + ":"  
-        + new Date().getMinutes();
+        + new Date().getMinutes() + ":" + new Date().getSeconds();
       },
 };
 export default posts;

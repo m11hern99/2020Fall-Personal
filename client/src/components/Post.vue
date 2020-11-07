@@ -24,8 +24,8 @@
               </p1>
             </div>
             <div >
-            <select id="exer2" ref="exer2" disabled >
-                <option value="empty">Exercise Name</option>
+            <select id="exer2" ref="exer2" disabled @change="onChangeEx($event)">
+                <option value="Exercise Name">Exercise Name</option>
                 <option value="Crunch">Crunch</option>
                 <option value="Leg Curl">Leg Curl</option>
                 <option value="Lunge">Lunge</option>
@@ -42,8 +42,8 @@
             {{item.exercise}}
             </p1>
             <br>
-              <select id="loc2" ref="loc2" disabled >
-                <option value="empty">Location</option>
+              <select id="loc2" ref="loc2" disabled @change="onChangeLoc($event)">
+                <option value="Location" diabled >Location</option>
                 <option value="Home">Home</option>
                 <option value="Gym">Gym</option>
                 <option value="Outside">Outside</option>
@@ -55,8 +55,8 @@
             </div>
             <div class="content" >
               <div class ="buttons" >
-                    <button class="button"  ref="btnEdit" @click ="editItem(i)"> Edit </button>
-                    <button class="button" @click="deleteItem(i)"> Delete </button>
+                    <button class="button" id="btn2" ref="btnEdit" @click ="editItem(i)"> Edit </button>
+                    <button class="button" id="btn2" @click="deleteItem(i)"> Delete </button>
               </div>
                <div id ="time">
              <i> {{item.time}} </i>
@@ -81,10 +81,18 @@ export default {
   },
       data: ()=> ({  
         feed, isEdit : false, enable : true,
+         Location: "Location", newExer: '', newLoc: '',
     }),
     methods:{
         deleteItem(i){
             feed.deleteItem(i);
+        },
+        onChangeEx(event) {
+              this.newExer = event.target.value;
+        },
+        onChangeLoc(event) {
+             this.newLoc = event.target.value;
+
         },
         editItem(i){
           this.isEdit = !this.isEdit;
@@ -98,9 +106,15 @@ export default {
           }
           if(this.isEdit == false){  
             this.$refs.btnEdit.innerText = "Edit";
-          //  this.$refs.exer2.innerText ="Exercise Name";
-            // this.$refs.loc2.innerText = "Location";
-            feed.editItem(i,this.$refs.edit.innerText,this.$refs.exer2.innerText,this.$refs.loc2.innerText);
+            document.getElementById("exer2").selectedIndex =0;
+            document.getElementById("loc2").selectedIndex= 0;
+            if(this.newExer == ''){
+              this.newExer = this.item.exercise;
+            }
+            if(this.newLoc == ''){
+              this.newLoc = this.item.location;
+            }
+            feed.editItem(i,this.$refs.edit.innerText,this.newExer,this.newLoc);
           }
         }
     }
