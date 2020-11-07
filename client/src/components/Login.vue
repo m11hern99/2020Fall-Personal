@@ -55,20 +55,12 @@ export default {
   margin: 5px 1px 3px 0px;
   border: 1px solid pink;
 }
-
 .field{
   text-align: center; 
   margin: auto;
   width: 50%;
   }
-#login:focus{
-  box-shadow: 0 0 5px pink;
-  border: 1px solid pink;
-}
-#btn:focus{
- box-shadow: 0 0 5px pink;
-  border: 1px solid pink;
-}
+
 #btn{
   margin-left: 200px;
 }

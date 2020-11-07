@@ -14,8 +14,8 @@
                 </span>
                 </span>
             </label>
-            <label id="exercise" for="exercise">Choose exercise:</label>
-            <select id="excer" >
+            <label id="exercise" for="exercise">Choose Exercise:</label>
+            <select id="exer" >
                 <option value="empty">None Selected</option>
                 <option value="Crunch">Crunch</option>
                 <option value="Leg Curl">Leg Curl</option>
@@ -34,8 +34,8 @@
                 <option value="Home">Home</option>
                 <option value="Gym">Gym</option>
                 <option value="Outside">Outside</option>
-            </select>
-            <button class="button" @click="addItem()"> Post </button>
+                </select>
+            <button class="button" id="postBtn" @click="addItem()"> Post </button>
         </div>
         </div>
 
@@ -66,7 +66,7 @@ export default {
         addItem(){
             var l =document.getElementById("loc").value
             var y; // wil be used for url to image
-            var z = document.getElementById("excer").value;
+            var z = document.getElementById("exer").value;
             var x = document.getElementById("message").value;
             feed.addItem(x,z,y,l);
         },
@@ -80,11 +80,12 @@ export default {
 .button:focus{
   box-shadow: 0 0 5px pink;
   border: 1px solid pink;
+  outline:0px;
 }
 .file{
     margin-top : 5px;
 }
-.button{
+#postBtn{
     margin-left: 7px;
 }
 #btn2,#edit2{
@@ -94,8 +95,14 @@ export default {
     margin-top : 5px;
     margin-right: 5px;
     margin-left: 5px;
+    
+}
+#exer:focus,#loc:focus{
+  box-shadow: 0 0 5px pink;
+  border: 1px solid pink;
+  outline: 0px;
 }
 .content{
-    position: relative;
+ position: relative;
 }
-</style>
+</style> 

@@ -17,7 +17,7 @@ const posts= {
         },
         {
             url: 'https://phoeberosetta.files.wordpress.com/2012/12/are-black-women-justified-in-avoiding-exercise-due-to-hair-issues2.jpg',
-            message: 'Working with dumbells today',
+            message: 'Working with dumbbells today',
             exercise: 'Lifting',
             location: 'Home',
             time: ( new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
@@ -60,8 +60,13 @@ const posts= {
                 profile : session.user.profile,
         }});
     },
-    editItem(i,x){
-        this.item[i].message = x;
+    editItem(i,mes,ex,loc){
+        this.item[i].message = mes;
+        this.item[i].exercise = ex;
+        this.item[i].location = loc;
+        this.item[i].time = (new Date().getMonth()+1) + "/" + new Date().getDate() + "/" + new Date().getFullYear() + " @ "  
+        + new Date().getHours() + ":"  
+        + new Date().getMinutes();
       },
 };
 export default posts;
