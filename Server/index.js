@@ -7,7 +7,6 @@ const users = require('./controllers/users');
 
 const app = express()
 const port = process.env.PORT || 3000;
-
 console.log(process.env.BEST_CLASS);
 
 app.use(express.json());
@@ -28,7 +27,7 @@ app.get('/', (req, res, next) => {
 app.use('/users', users);
 
 app.get('*', (req, res, next) => { 
-  const filename = path.join(__dirname + '/../docs/index.html');
+  const filename = path.join(__dirname, '/../docs/index.html');
   res.sendFile(filename);
 })
 
