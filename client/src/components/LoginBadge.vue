@@ -4,17 +4,21 @@
       <div class="dropdown" :class = "{ 'is-active': isActive }" @click = "isActive = !isActive">
         <div class="dropdown">
           <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+            <router-link to="/feed">
             <span>{{session.user.name}}</span>
             <span class="icon is-small" id = "pfp">
               <img :src="session.user.profile" alt="Profile Picture">
             </span>
+            </router-link>
           </button>
         </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu" >
-          <router-link to="/login"  id = "button" class="button">Sign Out</router-link>
-        </div>
       </div>
+      <div class="dropdown-content">
+      <a href="/signup">Sign Out</a>
+            </div>
     </div>
+
+
       <div class="buttons" v-else>
         <router-link to="/Signup" class="button is-dark">
           <strong>Sign up</strong>

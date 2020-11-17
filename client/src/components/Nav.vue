@@ -15,6 +15,8 @@
       <div class="navbar-start">
         <router-link to="/" class="navbar-item" id="item" > <i id= "icon2" class = "fas fa-home" ></i>Home</router-link>
         <router-link to="/feed" class="navbar-item" id="item" >Feed</router-link>
+        <router-link to="/users" class="navbar-item" id="item" >Admin</router-link>
+
       </div>
       <LoginBadge/>
     </div>
