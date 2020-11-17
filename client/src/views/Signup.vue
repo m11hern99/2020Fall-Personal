@@ -1,7 +1,6 @@
 <template>
     <div class="container">
           <Signup />
-         <router-view/>
      </div>
 </template>
 
