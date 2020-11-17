@@ -1,4 +1,5 @@
-const express = require('express')
+
+const express = require('express');
 const path = require('path');
 require('dotenv').config();
 
@@ -10,7 +11,7 @@ const port = process.env.PORT || 3000;
 console.log(process.env.BEST_CLASS);
 
 app.use(express.json());
-app.use('/', express.static(__dirname + '/../docs/'))
+app.use('/', express.static(__dirname + '/../docs/'));
 
 app.use(function(req, res, next) {
   const arr = (req.headers.authorization || "").split(" ");
@@ -27,7 +28,7 @@ app.get('/', (req, res, next) => {
 app.use('/users', users);
 
 app.get('*', (req, res, next) => { 
-  const filename = path.join ( __dirname + '/../docs/index.html');
+  const filename = path.join(__dirname + '/../docs/index.html');
   res.sendFile(filename);
 })
 
