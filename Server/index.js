@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 console.log(process.env.BEST_CLASS);
 
 app.use(express.json());
-app.use('/', express.static(__dirname + '/../docs/'));
+app.use(express.static(__dirname + '/../docs/'));
 
 app.use(function(req, res, next) {
   const arr = (req.headers.authorization || "").split(" ");
