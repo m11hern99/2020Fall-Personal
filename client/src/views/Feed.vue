@@ -66,8 +66,7 @@ export default {
     methods: {
         addItem(){
             var l =document.getElementById("loc").value
-           // var y; this.imageUpload.src;
-            alert(this.imageUpload.substring(5));
+            var y;
             var z = document.getElementById("exer").value;
             var x = document.getElementById("message").value;
             document.getElementById("exer").selectedIndex= 0;
