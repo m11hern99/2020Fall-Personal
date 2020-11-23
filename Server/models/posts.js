@@ -1,12 +1,35 @@
 const mysql = require('./mysql');
 const cm = require('./ContactMethods');
+const comments = require('./Comments');
 
 const MediaTypes = { GIF: 'image/gif', JPG: 'image/jpeg', PNG: 'image/png' };
 const Privacy_Levels = { HIDDEN: 0, ONLY_ME: 1, ONLY_FRIENDS: 2, PUBLIC: 4 };
 
 async function getAll(){
     const sql = `SELECT P.*, FirstName, LastName, 
-    (SELECT Value FROM ContactMethods Where User_id = U.id AND Type='${cm.Types.EMAIL}' AND IsPrimary = true) as PrimaryEmail
+    (SELECT Value FROM ContactMethods Where User_id = U.id AND Type='${cm.Types.EMAIL}' AND IsPrimary = true) as PrimaryEmail,
+    (SELECT COUNT(*) FROM Reactions WHERE Post_id = P.id) as Reactions
+    FROM Posts P Join Users U ON P.Owner_id = U.id`
+    return await mysql.query(sql);
+}
+
+async function getByUser(user_id){
+    const sql = `SELECT P.*, FirstName, LastName, 
+    (SELECT Value FROM ContactMethods Where User_id = U.id AND Type='${cm.Types.EMAIL}' AND IsPrimary = true) as PrimaryEmail,
+    (SELECT COUNT(*) FROM Reactions WHERE Post_id = P.id) as Reactions
+    FROM Posts P Join Users U ON P.Owner_id = U.id
+    WHERE P.Owner_id = ?`
+    const posts =  await mysql.query(sql,[user_id]);
+    for(const p of posts){
+        p.Comments = await comments.getForPost(p.id);
+    }
+    return posts;
+}
+
+async function getFeed(user_id){
+    const sql = `SELECT P.*, FirstName, LastName, 
+    (SELECT Value FROM ContactMethods Where User_id = U.id AND Type='${cm.Types.EMAIL}' AND IsPrimary = true) as PrimaryEmail,
+    (SELECT COUNT(*) FROM Reactions WHERE Post_id = P.id) as Reactions
     FROM Posts P Join Users U ON P.Owner_id = U.id`
     return await mysql.query(sql);
 }
@@ -45,4 +68,4 @@ async function remove(id){
 
 const search = async q => await mysql.query(`SELECT id, URL, Text, Media_Type FROM Posts WHERE Text LIKE ? ; `, [`%${q}%`]);
 
-module.exports = { getAll, get, add, update, remove, getTypes, search, MediaTypes, Privacy_Levels }
+module.exports = { getAll, get, add, update, remove, getTypes, search, MediaTypes, Privacy_Levels, getByUser,getFeed }

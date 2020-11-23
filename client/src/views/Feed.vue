@@ -41,10 +41,13 @@
         <img id="output">
         <p id="status"></p>
         <div class="columns">
-            <div class = "column is-two-third">
+            <div class = "column is-one-quarter">
+                <Sidebar/>
+            </div>
+            <div class = "column is-one-half">
                 <Post v-for="(x,i) in posts" :key = "i" :post = "x" :i="i" />
             </div>
-            <div class = "column is-one-third">
+            <div class = "column is-one-quarter">
                 <Sidebar/>
             </div>
         </div>
