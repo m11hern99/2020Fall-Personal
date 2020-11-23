@@ -1,6 +1,6 @@
 const mysql = require('./mysql');
 const cm = require('./ContactMethods');
-const comments = require('./Comments');
+const comments = require('./comments');
 
 const MediaTypes = { GIF: 'image/gif', JPG: 'image/jpeg', PNG: 'image/png' };
 const Privacy_Levels = { HIDDEN: 0, ONLY_ME: 1, ONLY_FRIENDS: 2, PUBLIC: 4 };
