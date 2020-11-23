@@ -3,7 +3,6 @@ const mysql = require('./mysql');
 const Emojis = { LOVE: '❤️' }
 
 async function getAll(){
-    console.log("Called Get All")
     const sql = `SELECT P.*, FirstName, LastName FROM Reactions P Join Users U ON P.Owner_id = U.id`
     return await mysql.query(sql);
 }

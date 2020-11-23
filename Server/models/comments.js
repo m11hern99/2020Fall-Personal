@@ -1,7 +1,6 @@
 const mysql = require('./mysql');
 
 async function getAll(){
-    console.log("Called Get All")
     const sql = `SELECT P.*, FirstName, LastName FROM Comments P Join Users U ON P.Owner_id = U.id`
     return await mysql.query(sql);
 }

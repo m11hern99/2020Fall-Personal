@@ -42,7 +42,7 @@
         <p id="status"></p>
         <div class="columns">
             <div class = "column is-two-third">
-                <Post v-for="(x,i) in feed.item" :key = "i" :item = "x" :i="i" />
+                <Post v-for="(x,i) in posts" :key = "i" :post = "x" :i="i" />
             </div>
             <div class = "column is-one-third">
                 <Sidebar/>
@@ -54,11 +54,17 @@
 <script>
 import Post from "@/components/Post";
 import Sidebar from "@/components/Sidebar";
-import feed from "@/models/feed";
+import { getPosts } from "@/models/feed";
+import session from "@/models/session";
 export default {
-    data: ()=> ({
-        feed, output: '',
-    }),
+    data(){
+        return {
+            posts:[]
+        }
+    },
+    async created(){
+        this.posts = await getPosts();
+    },
     components: {
         Post,
         Sidebar

@@ -3,7 +3,7 @@
     
     <div class="card-image">
         <figure class="image is-4by3">          
-          <img :src="item.url" >
+          <img :src="post.URL" >
         </figure>
     </div>
     <div class="card-content">
@@ -11,16 +11,16 @@
       <div class="media">
         <div class="media-left">
           <figure class="image is-48x48">
-            <img :src="item.owner.profile" alt="Profile image">
+            <img :src="`http://localhost:3001/public/profiles/${post.Owner_id}.jpg`" alt="Profile image">
           </figure>
         </div>
 
         <div class="media-content">
-            <p class="title is-4"> {{item.owner.name}} </p>
-            <p class="subtitle is-6">@{{item.owner.handle}}</p>
+            <p class="title is-4"> {{post.FirstName}} {{post.LastName}}</p>
+            <p class="subtitle is-6">@{{post.PrimaryEmail}}</p>
             <div ref="edit" id = "edit">
               <p1>
-              {{item.message}}
+              {{post.Text}}
               </p1>
             </div>
             <div >
@@ -39,7 +39,7 @@
             </select>
             <br>
             <p1>
-            {{item.exercise}}
+            {{post.ExerciseName}}
             </p1>
             <br>
               <select id="loc2" ref="loc2" disabled @change="onChangeLoc($event)">
@@ -50,7 +50,7 @@
             </select>             
             <br>
             <p1>
-             {{item.location}}
+             {{post.LocationName}}
              </p1>
             </div>
             <div class="content" >
@@ -58,15 +58,12 @@
                     <button class="button" id="btn2" ref="btnEdit" @click ="editItem(i)"> Edit </button>
                     <button class="button" id="btn2" @click="deleteItem(i)"> Delete </button>
               </div>
-               <div id ="time">
-             <i> {{item.time}} </i>
+              <time :datetime="post.created_at">{{post.created_at}}</time>
             </div>
             </div> 
         </div>
       </div>
     </div> 
-
-  </div>
 </template>
 
 <script>
@@ -76,7 +73,7 @@ import session from "@/models/session";
 
 export default {
   props: {
-    item: Object,
+    post: Object,
     i: Number
   },
       data: ()=> ({  
