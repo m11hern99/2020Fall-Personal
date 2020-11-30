@@ -69,6 +69,9 @@ export default {
       posts: [],
       fbpics: [],
       picDisplay: "block",
+      loc: "",
+      exer: "",
+      mess: "",
     };
   },
   components: {
@@ -95,14 +98,12 @@ export default {
       URL : p.images[0].source})
     },
     addItem() {
-      var l = document.getElementById("loc").value;
-      var y;
-      var z = document.getElementById("exer").value;
-      var x = document.getElementById("message").value;
+      var loc = document.getElementById("loc").value;
+      var excer = document.getElementById("exer").value;
+      var mess = document.getElementById("message").value;
       document.getElementById("exer").selectedIndex = 0;
       document.getElementById("loc").selectedIndex = 0;
       document.getElementById("message").value = "";
-      feed.addItem(x, z, y, l);
     },
   },
 };
