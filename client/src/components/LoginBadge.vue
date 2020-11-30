@@ -13,9 +13,6 @@
           </button>
         </div>
       </div>
-      <div class="dropdown-content">
-      <a href="/signup">Sign Out</a>
-            </div>
     </div>
 
 

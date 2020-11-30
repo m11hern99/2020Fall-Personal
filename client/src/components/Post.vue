@@ -31,9 +31,9 @@
           <p class="title is-4">{{ post.FirstName }} {{ post.LastName }}</p>
           <p class="subtitle is-6">@{{ post.PrimaryEmail }}</p>
           <div ref="edit" id="edit">
-            <p1>
+            <p>
               {{ post.Text }}
-            </p1>
+            </p>
           </div>
           <div>
             <select
@@ -55,9 +55,9 @@
               <option value="Lifting">Lifting</option>
             </select>
             <br />
-            <p1>
+            <p>
               {{ post.ExerciseName }}
-            </p1>
+            </p>
             <br />
             <select id="loc2" ref="loc2" disabled @change="onChangeLoc($event)">
               <option value="Location" diabled>Location</option>
@@ -66,9 +66,9 @@
               <option value="Outside">Outside</option>
             </select>
             <br />
-            <p1>
+            <p>
               {{ post.LocationName }}
-            </p1>
+            </p>
           </div>
           <div class="content">
             <div class="buttons">
@@ -127,7 +127,6 @@
 </template>
 
 <script>
-import feed from "@/models/feed";
 import session from "@/models/session";
 import {react, comment} from "../models/feed";
 
@@ -137,7 +136,6 @@ export default {
     i: Number,
   },
   data: () => ({
-    feed,
     isEdit: false,
     enable: true,
     Location: "Location",
@@ -146,7 +144,7 @@ export default {
     commentText: '',
   }),
   methods: {
-    deleteItem(i) {
+    /*deleteItem(i) {
       feed.deleteItem(i);
     },
     onChangeEx(event) {
@@ -177,7 +175,7 @@ export default {
         }
         feed.editItem(i, this.$refs.edit.innerText, this.newExer, this.newLoc);
       }
-    },
+    },*/
     async react() {
         const that = this;
         react(this.post.id)
