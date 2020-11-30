@@ -16,7 +16,7 @@
       <button class="button" id="btn" @click.prevent="login">
         <strong> Login </strong>
       </button>
-      <button class="button" @click.prevent="fbLogin">
+      <button class="button" @click.prevent="fblogin">
         <strong> FB Login</strong>
       </button>
       <button class="button" @click.prevent="googleLogin">
@@ -41,21 +41,20 @@ export default {
       };
       this.$router.push("Feed");
     },
-    fbLogin() {
-      FB.login(
-        (authInfo) => {
-          FB.api("me?fields=id,name,email,picture", (x) => {
-            session.user = {
-              name: x.name,
-              handle: x.email,
-              profile: x.picture.data.url,
-            };
-            this.$router.push("Feed");
-          });
+         fblogin(){
+            FB.login( authInfo =>{
+                console.log(authInfo);
+                FB.api("me?fields=id,name,email,picture", x=>{
+                    session.user = {
+                        name: x.name,
+                        handle: x.email,
+                        profile: x.picture.data.url
+                    }
+                    this.$router.push('Feed')
+                    console.log(x)
+                }  )
+            }, { scope: 'public_profile,email,user_photos'})
         },
-        { scope: "public_profile,email,user_photos" }
-      );
-    },
     async googleLogin() {
       const googleUser = await auth2.signIn();
       const profile = googleUser.getBasicProfile();
@@ -72,7 +71,7 @@ export default {
 // load facebook script
 window.fbAsyncInit = function () {
   FB.init({
-    appId: "1144678312688368",
+    appId: "850052649102710",
     cookie: true,
     xfbml: true,
     version: "v9.0",
