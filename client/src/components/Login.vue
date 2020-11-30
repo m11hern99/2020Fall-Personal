@@ -64,7 +64,7 @@ export default {
         handle: profile.getEmail(),
         profile: profile.getImageUrl(),
       };
-      this.$router.push("feed");
+      this.$router.push("Feed");
     },
   },
 };
