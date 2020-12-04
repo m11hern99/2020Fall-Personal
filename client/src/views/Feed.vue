@@ -62,7 +62,6 @@
 import Post from "@/components/Post";
 import Sidebar from "@/components/Sidebar";
 import { getPosts } from "@/models/feed";
-import session from "@/models/session";
 export default {
   data() {
     return {
