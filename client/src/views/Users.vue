@@ -30,7 +30,7 @@
           <b-autocomplete
             v-model="search"
             placeholder="Search key words in a post to find..."
-            :data="filteredDataArray()"
+            :data="filteredDataArray"
             @typing="getAsyncData"
             @select="(option) => (selected = option)"
           >
