@@ -1,0 +1,32 @@
+;        module 2
+@f1$v:   aloc 1     ; allocate lv
+
+         ldc  2     ; gv = 2;
+         st   gv
+
+         ldc  3     ; sgv = 3;
+         st   sgv
+
+         ldc  4     ; lv = 4;
+         str  0
+
+         ldc  5     ; slv = 5;
+         st   @s0_slv
+
+         dloc 1     ; dealloc lv
+         ret
+gv:      dw   0
+sgv:     dw   0
+@s0_slv: dw   0
+         public gv
+;
+@f2$v:   ldc  6     ; gv = 6;
+         st   gv
+
+         ldc  7     ; sgv = 2;
+         st   sgv
+
+         call @f1$v ; f1();
+
+         ret
+         public @f2$v

@@ -1,0 +1,11 @@
+main:    call sub       ; call other module sub
+         st   total     ; total is in sub
+         halt
+x:       dw   17
+         ep   main
+; =================================================
+sub:     ld   x         ; x is in main
+         add  y
+         ret
+y:       dw   34
+total:   dw   0

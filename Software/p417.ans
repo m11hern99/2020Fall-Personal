@@ -1,0 +1,26 @@
+; #7765 146 147 263 2549 14487
+;Your program should look exactly like this (with the test case 
+;data replacing the strings):
+;Enter string 
+;abba
+;Yes
+n
+o
+ln
+SD
+g
+abba
+o
+g
+aba
+o
+g
+a
+o
+g
+ab
+o
+g
+abbaa
+q
+

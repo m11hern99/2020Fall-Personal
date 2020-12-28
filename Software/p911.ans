@@ -1,0 +1,11 @@
+; #87b2 32 147 50 552 38056
+;The display should look exactly like this:
+;8
+;4
+;50
+n
+o
+ln
+SD
+g
+q

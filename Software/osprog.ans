@@ -1,0 +1,11 @@
+; #c52d 786 302 573 6831 23461
+; Create os.has with your symbolic microcode.
+; Use the provided os.cfg (it is in software package). 
+; Test using the provided osprog.mas (it is in the software package).
+n
+o
+ln
+enable
+sd
+g
+q

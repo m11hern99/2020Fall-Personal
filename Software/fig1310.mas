@@ -1,0 +1,7 @@
+                   ; multiply 3000 x 4                    
+         !o        ; configuration/microcode file to use    
+         ldc  3000 ; get multiplier                       
+         push      ; push one number onto stack             
+         ldc  4    ; get multiplicand                         
+         m         ; multiply using shift-add in microcode  
+         halt                                                            

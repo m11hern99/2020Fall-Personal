@@ -1,0 +1,21 @@
+         !o
+@f$pii:  esba           ; establish base address
+
+         ; int y
+         aloc 1
+
+         ; y = *p + x;
+         ldr  2         ; get p
+         ldi            ; get *p
+         addr 3         ; add x
+         str  -1        ; store in y (note negative rel add)
+
+         ; *p = y;
+         ldr  -1        ; get y      (note negative rel add)
+         push
+         ldr  2         ; get p
+         sti            ; store in *p
+
+         reba           ; deallocate y and restore bp
+         ret            ; return to caller
+         public @f$pii

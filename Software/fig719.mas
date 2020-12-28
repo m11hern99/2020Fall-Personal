@@ -1,0 +1,18 @@
+sum:     aloc 1
+
+         ldr  2      ; replace with ld  FFEh
+         addr 3      ; replace with add FFFh
+         str  0      ; replace with st  FFCh
+
+         dloc 1
+         ret
+;==============================================
+main:    ldc  10     ; sum(5,10);
+         push
+         ldc  5
+         push
+         call sum
+         dloc 2
+
+         halt
+         ep   main

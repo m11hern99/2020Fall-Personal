@@ -1,0 +1,12 @@
+; #0fcd 446 261 295 3809 63080
+; Create ksl.has with your symbolic microcode.
+; Use the provided ksl.cfg (it is in software package). 
+; Test using the provided kslprog.mas (it is in the software package).
+; See kslprog.mas for the  machine instructions that have to be supported.
+n
+o
+ln
+enable
+sd
+g
+q

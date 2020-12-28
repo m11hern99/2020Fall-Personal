@@ -1,0 +1,160 @@
+Machine-level Assembler Version 7.1    Tue Dec  8 20:16:44 2020
+
+  LOC    OBJ   SOURCE
+hex*dec
+
+0  *0    8055  main:		ldc a
+1  *1    F300  		push 
+2  *2    805B  		ldc b
+3  *3    F300  		push
+4  *4    8064  		ldc c
+5  *5    F300  		push
+6  *6    E00A  		call merge
+7  *7    8064  		ldc c
+8  *8    FFF7  		sout
+9  *9    FFFF  		halt
+               
+A  *10   4002  merge:		ldr 2  
+B  *11   2084  		add indexB
+C  *12   F100  		ldi   
+D  *13   1087  		st temp
+E  *14   4003  		ldr 3
+F  *15   2083  		add indexA
+10 *16   F100  		ldi  
+11 *17   3087  		sub temp
+12 *18   A022  		jzop mergeB
+13 *19   4003  		ldr 3
+14 *20   2083  		add indexA
+15 *21   F100  		ldi
+16 *22   C054  		jz exit 
+17 *23   F300  		push
+18 *24   4002  		ldr 2 
+19 *25   2085  		add indexC
+1A *26   F200  		sti
+1B *27   0083  		ld indexA
+1C *28   2086  		add one
+1D *29   1083  		st indexA
+1E *30   0085  		ld indexC
+1F *31   2086  		add one
+20 *32   1085  		st indexC
+21 *33   900A  		ja merge
+               
+22 *34   4002  mergeB:		ldr 2  
+23 *35   2084  		add indexB
+24 *36   F100  		ldi   
+25 *37   1087  		st temp
+26 *38   4003  		ldr 3
+27 *39   2083  		add indexA
+28 *40   F100  		ldi    
+29 *41   3087  		sub temp
+2A *42   C039  		jz mergeBoth
+2B *43   4002  		ldr 2
+2C *44   2084  		add indexB
+2D *45   F100  		ldi
+2E *46   F300  		push
+2F *47   4002  		ldr 2
+30 *48   2085  		add indexC
+31 *49   F200  		sti
+32 *50   0084  		ld indexB
+33 *51   2086  		add one
+34 *52   1084  		st indexB
+35 *53   0085  		ld indexC
+36 *54   2086  		add one
+37 *55   1085  		st indexC
+38 *56   900A  		ja merge	
+               
+39 *57   4003  mergeBoth:	ldr 3
+3A *58   2083  		add indexA
+3B *59   F100  		ldi
+3C *60   F300  		push
+3D *61   4002  		ldr 2 
+3E *62   2085  		add indexC
+3F *63   F200  		sti
+40 *64   0085  		ld indexC
+41 *65   2086  		add one
+42 *66   1085  		st indexC
+43 *67   4002  		ldr 2  
+44 *68   2084  		add indexB
+45 *69   F100  		ldi 
+46 *70   F300  		push
+47 *71   4002  		ldr 2
+48 *72   2085  		add indexC
+49 *73   F200  		sti
+4A *74   0083  		ld indexA
+4B *75   2086  		add one
+4C *76   1083  		st indexA
+4D *77   0084  		ld indexB
+4E *78   2086  		add one
+4F *79   1084  		st indexB
+50 *80   0085  		ld indexC
+51 *81   2086  		add one
+52 *82   1085  		st indexC
+53 *83   900A  		ja merge
+               	
+54 *84   F000  exit:		ret
+               
+55 *85   0033  a: dw "34AXy"
+56 *86   0034
+57 *87   0041
+58 *88   0058
+59 *89   0079
+5A *90   0000
+5B *91   0034  b: dw "4ABuvwxy" 
+5C *92   0041
+5D *93   0042
+5E *94   0075
+5F *95   0076
+60 *96   0077
+61 *97   0078
+62 *98   0079
+63 *99   0000
+64 *100  0000  c: dw 20 dup 0
+78 *120  0063  d: dw "checkpoint"
+79 *121  0068
+7A *122  0065
+7B *123  0063
+7C *124  006B
+7D *125  0070
+7E *126  006F
+7F *127  0069
+80 *128  006E
+81 *129  0074
+82 *130  0000
+83 *131  0000  indexA: dw 0
+84 *132  0000  indexB:	dw 0
+85 *133  0000  indexC: dw 0
+86 *134  0001  one: dw 1
+87 *135  0000  temp: dw 0
+88 *136  ========= end of test.mas ===============================
+
+
+         Symbol/Cross-Reference Table
+
+Symbol                   Address     References
+                          (hex)       (hex)
+
+ main                      0          
+ merge                     A           6   21  38  53 
+ mergeB                    22          12 
+ mergeBoth                 39          2A 
+ exit                      54          16 
+ a                         55          0  
+ b                         5B          2  
+ c                         64          4   7  
+ d                         78         
+ indexA                    83          F   14  1B  1D  27 
+                                       3A  4A  4C 
+ indexB                    84          B   23  2C  32  34 
+                                       44  4D  4F 
+ indexC                    85          19  1E  20  30  35 
+                                       37  3E  40  42  48 
+                                       50  52 
+ one                       86          1C  1F  33  36  41 
+                                       4B  4E  51 
+ temp                      87          D   11  25  29 
+
+Input file   = test.mas
+Output file  = test.mac
+List file    = test.lst 
+Number base  = decimal
+Label status = case sensitive

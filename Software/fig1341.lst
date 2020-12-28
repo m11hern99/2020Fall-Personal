@@ -1,0 +1,65 @@
+Machine-level Assembler Version 7.1    Thu Oct 29 18:03:41 2020
+
+  LOC    OBJ   SOURCE
+hex*dec
+
+                        !k             ; use the stack instruction set
+0  *0    0000  sum:     dw    0         ; int sum;
+               @ret_sum$ii:
+1  *1    F900           esba
+               
+2  *2    4FFF           aspc -1        ; int z;
+                                       ; z = x + y;
+3  *3    3FFF           cora -1           ; push address of z
+4  *4    2002           pr    2           ; push x
+5  *5    2003           pr    3           ; push y
+6  *6    F100           add               ; compute x + y
+7  *7    F300           stav              ; store sum in z
+                                       ; return z;
+8  *8    2FFF           pr   -1           ; push value of z
+9  *9    3004           cora  4           ; push address of return area
+A  *10   F400           stva              ; save return value in return area
+B  *11   FA00           reba
+C  *12   F000           ret
+               ;=======================================================
+D  *13   F900  main:    esba
+                                        ; sum = ret_sum(5, 7);
+E  *14   1000           pc    sum           ; push address of sum
+F  *15   4FFF           aspc -1             ; allocate return area
+10 *16   1007           pc    7             ; create parameters
+11 *17   1005           pc    5
+12 *18   5001           call  @ret_sum$ii
+13 *19   4002           aspc  2             ; deallocate parameters
+14 *20   F300           stav                ; store return value in sum
+               
+15 *21   0000           p     sum       ; cout << sum << endl;
+16 *22   FFFD           dout
+17 *23   100A           pc   '\n'
+18 *24   FFFB           aout
+                                        
+19 *25   3004           cora  4            ; push address of return area
+1A *26   1000           pc    0            ; push 0
+1B *27   F300           stav               ; store return value in return area
+1C *28   FA00           reba
+1D *29   F000           ret
+                        public sum
+                        public @ret_sum$ii
+                        public main 
+1E *30   ========= end of fig1341.mas ============================
+
+
+         Symbol/Cross-Reference Table
+
+Symbol                   Address     References
+                          (hex)       (hex)
+
+ sum                       0           1E  E   15 
+ @ret_sum$ii               1           1E  12 
+ main                      D           1E 
+
+Input file   = fig1341.mas
+Output file  = fig1341.mob
+List file    = fig1341.lst 
+Config file  = k.cfg 
+Number base  = decimal
+Label status = case sensitive

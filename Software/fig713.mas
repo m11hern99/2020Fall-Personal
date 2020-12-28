@@ -1,0 +1,23 @@
+m:       dw   5
+fg:      aloc 1      ; int y;
+
+         ldc  7      ; y = 7;
+         str  0
+
+         ldc  2      ; x = x + y -3;
+         addr 0
+         sub  @3
+         str  2
+
+         dloc 1      ; deallocate y
+         ret
+; =====================================================
+main:    ld   m      ; fg(m);
+         push
+         call fg
+         dloc 1
+
+         ldc  0
+         halt
+@3:      dw   3
+         ep   main

@@ -1,0 +1,15 @@
+         !b                                      bprog.mas
+start:   ld     @2       ; load 2
+         st     x        ;
+         flip            ; flip bits in ac
+         addc   1        ; get -2
+         push            ; -2 now at rel addr 0
+         mult   @_3      ; multiply ac by x
+         addr   0        ; add -2 from stack
+         shll   3        ; multiply by 8 by shifting
+         jn     done     ; jump if ac is negative
+         dout            ; output ac in decimal
+done:    halt
+x:       dw     0
+@2:      dw     2
+@_3:     dw    -3

@@ -1,0 +1,71 @@
+y:       dw   1
+                        ; x = x + 5;
+fv:      ldc  5         ; get 5
+         addr 1         ; add x
+         str  1         ; store in x
+
+         ret
+; =========================================================
+                     ; *p = *p + 5;
+fr:      ldr  1         ; get p
+         ldi            ; get *p
+         add  @5        ; add 5
+         push           ; prepare for sti
+         ldr  2         ; get p
+         sti            ; store into *p
+
+         ret
+; =========================================================
+                     ; *p = x;
+fvr:     ldr  1         ; get x
+         push           ; prepare for sti
+         ldr  3         ; get p
+         sti            ; store into *p
+
+         ret
+; =========================================================
+main:    ld   y      ; fv(y);
+         push
+         call fv
+         dloc 1
+
+         ldc  @m0    ; cout << "y = " << y << endl;
+         sout
+         ld   y
+         dout
+         ldc  '\n'
+         aout
+
+         ldc  y      ; fr(&y);
+         push
+         call fr
+         dloc 1
+
+         ldc  @m1    ; cout << "y = " << y << endl;
+         sout
+         ld   y
+         dout
+         ldc  '\n'
+         aout
+
+         ldc  y      ; fvr(20, &y);
+         push
+         ldc  20
+         push
+         call fvr
+         dloc 2
+
+         ldc  @m2    ; cout << "y = " << endl;
+         sout
+         ld   y
+         dout
+         ldc  '\n'
+         aout
+
+         ldc  0
+         halt
+@5:      dw   5
+@m0:     dw   "y = "
+@m1:     dw   "y = "
+@m2:     dw   "y = "
+         ep   main

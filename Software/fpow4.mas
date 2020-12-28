@@ -1,0 +1,10 @@
+       pow4:    ldr    1
+                push
+                call   square
+                dloc   1
+                push
+                call   square
+                dloc   1
+                ret
+                public pow4
+                extern square

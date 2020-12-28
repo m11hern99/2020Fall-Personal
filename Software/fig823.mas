@@ -1,0 +1,54 @@
+ga:      dw   3 dup 0     ; global array
+x:       dw   0
+@arrays$v:
+         aloc 3         ; int dla[3];
+
+         ldc  @m0       ; cout << "enter index\n";
+         sout
+
+         din            ; cin >> x;
+         st   x
+
+         ldc  99        ; ga[2] = 99;
+         st   ga + 2
+
+         ldc  99        ; ga[x] = 99;
+         push
+         ldc  ga
+         add  x
+         sti
+
+         ldc  99        ; sla[2] = 99;
+         st   @s0_sla + 2
+
+         ldc  99        ; sla[x] = 99;
+         push
+         ldc  @s0_sla
+         add  x
+         sti
+
+         ldc  99        ; dla[2] = 99;
+         str  2
+
+                        ; dla[x] = 99;
+         ldc  99           ; get 99
+         push              ; prepare for sti
+         swap              ; get sp
+         st   @spsave      ; save it
+         swap              ; restore sp
+         ldc  1            ; get rel address of dla[0]
+         add  @spsave      ; get abs address of dla[0]
+         add  x            ; get abs address of dla[x]
+         sti               ; store 99 into dla[x]
+
+         dloc 3
+         ret
+;===================================================
+main:    call @arrays$v   ; arrays();
+
+         ldc  0
+         halt
+@s0_sla: dw   3 dup 0     ; static local array
+@m0:     dw   "enter index\n"
+@spsave: dw   0
+         ep   main

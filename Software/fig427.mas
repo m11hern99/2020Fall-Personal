@@ -1,0 +1,15 @@
+get_sum: ldr  0          ; get second number
+         addr 1          ; add first number
+         ret             ; return sum in ac register
+;==============================================
+main:    ld   x
+         push            ; push first number
+         ld   y
+         push            ; push second number
+         call get_sum    ; call function which adds two numbers
+         dout            ; display number
+         ldc  '\n'       ; output newline character
+         aout
+         halt
+x:       dw   2
+y:       dw   3

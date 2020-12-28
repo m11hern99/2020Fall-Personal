@@ -1,0 +1,23 @@
+                                                 myfc.txt
+
+Disclaimer                                                    
+
+The programs documented by this file are provided to you on an 
+"as is" basis for instructional purposes only, without any 
+warranties, expressed or implied.  The author and the publisher 
+of these programs shall not be liable in any event for 
+incidental, consequential, special, or punitive damages in 
+connection with, or arising out of the distribution, performance, 
+or use of these programs.               
+================================================================= 
+
+Quick Start
+
+     myfc performs a binary compare of the two files specified on 
+the command line.  If the two files match, myfc returns 0; 
+otherwise it returns 1.  It is used by the atest and ltest 
+batch/script files.
+
+     The command line format is
+
+     myfc <filename1> <filename2>

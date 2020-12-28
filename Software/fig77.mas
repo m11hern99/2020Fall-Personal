@@ -1,0 +1,19 @@
+fc:      aloc 1      ; int dla;
+
+         ldc  7      ; int dlb = 7;
+         push
+         ;   .
+         ;   .
+         ;   .
+         dloc 2      ; deallocate dla and dlb
+         ret
+; ===============================================
+
+main:    call fc     ; fc();
+
+         call fc     ; fc();
+
+         halt
+@s0_sla: dw   0     ; static local variable sla
+@s1_slb: dw   5     ; static local variable slb
+         ep   main

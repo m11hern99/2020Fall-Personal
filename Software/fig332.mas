@@ -1,0 +1,3 @@
+x:       dw 5
+a:       ld x         ; need halt instruction
+         ep a

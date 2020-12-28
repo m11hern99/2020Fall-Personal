@@ -1,0 +1,24 @@
+fm:      aloc 1         ; int x;
+
+         aloc 1         ; int *p;
+
+                        ; p = &x;
+         swap              ; get sp
+         st   @spsave      ; save it
+         swap              ; restore sp
+         ldc  1            ; get relative address of x (1)
+         add  @spsave      ; convert to an absolute address
+         str  0            ; store absolute address in p
+
+         dloc 2            ; deallocate x and p
+         ret
+;========================================================
+fn:      call fm        ; fm();
+         ret
+;========================================================
+main:    call fm        ; fm();
+         call fn        ; fn();
+         halt
+@spsave: dw   0
+         ep   main
+

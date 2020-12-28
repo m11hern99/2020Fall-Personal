@@ -1,0 +1,8 @@
+; #c93e 17 147 10 89 34180
+; The n command suppresses trace output.
+n
+o
+ln
+D*
+g
+q

@@ -1,0 +1,31 @@
+loop:	ldc msg1
+	sout
+	din
+	push
+	ld count
+	sub one
+	st count
+	jz loop2
+	ja loop
+
+loop2: 	pop
+	dout
+	ldc '\n'
+	aout
+	ld count2
+	sub one
+	st count2
+	jz final
+	ja loop2
+
+final:	halt
+
+
+
+
+
+msg1: dw "Enter decimal: "
+msg2: dw "Decimals backwards: "
+count: dw 10
+count2: dw 10
+one: dw 1

@@ -1,0 +1,56 @@
+          !r
+          ld @2
+          st x
+          ld x
+          scmp @2
+          jnz error
+          ld @2
+          add @5
+          scmp @7
+          jnz error
+          ld  @7
+          sub @5
+          scmp @2
+          jnz error
+          ld @2
+          mult @5
+          scmp @10
+          jnz error
+          ld @15
+          div @3
+          scmp @5
+          jnz error
+          ldc 5
+          neg
+          scmp @_5
+          jnz error
+          ldc 5
+          scmp @5
+          jnz error
+          ldc 1
+          jp over
+          ja error
+over:     ld @8000
+          scmp @1
+          jzop error
+          ldc  m1
+          sout
+          halt
+error:    ldc m2
+          sout
+          halt
+m1:       dw "No errors detected\n"
+m2:       dw "Errors detected\n" 
+@1:       dw 1
+@2:       dw 2
+@3:       dw 3
+@4:       dw 4
+@5:       dw 5
+@_5:      dw -5
+@7:       dw 7
+@10:      dw 10
+@15:      dw 15
+@8000:    dw 8000h
+x:        dw 0
+
+          

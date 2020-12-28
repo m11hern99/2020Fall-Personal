@@ -1,0 +1,13 @@
+         ; compute value of m - 1
+         ldr  1       ; get the address in m
+         ldi          ; dereference this address
+         sub  @1      ; compute value of argument
+
+         ; store this value in @temp
+         st   @temp
+
+         ; pass the address of @temp
+         ldc  @temp   ; get address of @temp
+         push         ; create parameter (the next m)
+         call bug
+         dloc 1       ; deallocate parameter

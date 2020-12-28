@@ -1,0 +1,29 @@
+; #7620 88 147 188 1666 7456
+;Your display should look exactly like this (with the data from 
+;the test cases replacing the numbers):
+;Enter decimal number
+;2
+;Enter decimal number
+;3     
+;Product = 6
+n
+o
+ln
+SD
+g
+2
+3
+o
+g
+-2
+3
+o
+g
+2
+-3
+o
+g
+-2
+-3
+q
+

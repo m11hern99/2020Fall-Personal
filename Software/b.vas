@@ -1,0 +1,86 @@
+/  Basic Instruction Set Vertical Microcode      b.vas
+
+/ The label indicates the opcode decoded up to that point.
+/ For example, control reaches the label L011 when opcode 
+/ bits 011 have been decoded.   
+/***************************************************************/
+/           Fetch instruction and increment pc register         /
+/***************************************************************/
+fetch:      mar    pc
+            rd
+            move   ir mdr
+            add    pc pc 1 
+/***************************************************************/
+/           Decode opcode                                       /
+/***************************************************************/
+            move   dc ir
+            bn     L8
+L0:         left   dc dc
+            bn     L01
+L00:        left   dc dc
+            bn     L001
+L000:       left   dc dc
+            bn     L0001
+            ba     L0000
+L01:        left   dc dc 
+            bn     L011 
+L010:       left   dc dc 
+            bn     L5 
+            ba     L4          
+L001:       left   dc dc 
+            bn     L3 
+            ba     L2
+L011:       left   dc dc 
+            bn     L7 
+            ba     L6
+/***************************************************************/
+/           Microcode for each instruction                      /
+/***************************************************************/
+L0000:      /-------------------- LD ---------------------------
+            mar    ir
+            rd 
+            move   ac mdr
+            ba     fetch 
+L0001:      /-------------------- ST ---------------------------
+            move mdr ac
+            mar ir
+            wr 
+            ba     fetch 
+L2:         /-------------------- MULT -------------------------
+            mar    ir
+            rd
+            mult   ac ac mdr
+            ba fetch
+L3:         /-------------------- ADDC -------------------------
+            and    f ir xmask
+            add    ac ac f
+            ba     fetch         
+L4:         /-------------------- ADDR -------------------------
+            add    f ir sp
+            mar    f 
+            rd
+            move   f mdr
+            add    ac ac f 
+            ba     fetch
+L5:         /-------------------- JN ----------------------------
+            sz     ac
+            bn     jn           
+            ba     fetch 
+jn:         and    pc ir xmask
+            ba     fetch 
+L6:         /-------------------- SHLL --------------------------
+            and    f ir zmask            / get z field
+            bz     fetch                 / branch if 0
+lloop:      left   ac ac                 / shift ac left
+            sub    f f 1                 / decrement count
+            bz     fetch                 / branch if 0
+            ba     lloop                 / branch
+L7:         /-------------------- FLIP -------------------------
+            flip ac ac
+            ba fetch
+L8:         /-------------------- PUSH -------------------------
+            sub    sp sp 1
+            move   mdr ac
+            mar sp
+            wr 
+            ba     fetch

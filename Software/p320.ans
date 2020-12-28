@@ -1,0 +1,12 @@
+; #1c89 9 147 7 44 2660
+; To test, enter v from within debugger.
+; The SD (Source Display) displays the source assembly language program.
+; Your program should output the two results with two dout 
+; instructions. They will output the two results right next to 
+; each other on the same line.
+n
+o
+ln
+SD
+g
+q

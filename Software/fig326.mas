@@ -1,0 +1,3 @@
+s1:      dw    'ABC'
+s2:      dw    "ABC"
+s3:      dw    10 dup "ABC"

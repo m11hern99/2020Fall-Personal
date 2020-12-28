@@ -1,0 +1,4 @@
+         ldc  10     ; load ac with 10
+         st   x      ; store 10 at x
+         halt
+x:       dw    0

@@ -1,0 +1,9 @@
+; #d998 3 147 3 15 5121
+; Add a dout instruction (FFFD) just before halt.
+; Use the machine code file name p24.mac.
+n
+o
+ln
+D*
+g
+q

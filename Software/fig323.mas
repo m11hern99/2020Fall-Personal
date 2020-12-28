@@ -1,0 +1,9 @@
+                          ; assume x corresponds to location 50
+         dw   7           ; 7 is a constant
+         dw   x           ; points to location 50
+         dw   x + 2       ; points to location 52
+         dw   x - 3       ; points to location 47
+         dw   *           ; points to this location
+         dw   * - 5       ; points to first dw above
+         org  50
+x:      

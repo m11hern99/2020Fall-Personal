@@ -1,0 +1,87 @@
+         !o
+p:       dw   1
+@n$ni:   esba
+
+                      ; int y;
+         aloc 1          ; allocate y
+
+                      ; y = x;
+         ldr  2          ; get x (address of thunk)
+         pbp             ; save bp on stack
+         bpbp            ; restore thunk's bp
+         cali            ; call thunk
+         pobp            ; restore current bp
+
+         ldi             ; get value computed by thunk
+         str  -1         ; store value in y
+
+                      ; cout << y << endl;
+         ldr  -1         ; get y
+         dout            ; display it
+         ldc  '\n'       ; endl
+         aout
+
+                      ; p = p + 5;
+         ldc  5          ; get constant 5
+         add  p          ; add p
+         st   p          ; store back in p
+
+                      ; y = x;
+         ldr  2          ; get x (address of thunk)
+         pbp             ; save bp on stack
+         bpbp            ; restore thunk's bp
+         cali            ; call thunk
+         pobp            ; restore current bp
+         ldi             ; get value computed by thunk
+         str  -1         ; store value in y
+
+                      ; cout << y << end;
+         ldr  -1         ; get y
+         dout            ; display it
+         ldc  '\n'       ; endl
+         aout
+
+         reba
+         ret
+;=========================================================
+main:    esba
+
+                      ; int q = 2;
+         ldc  2          ; allocate and initialize q
+         push
+
+                      ; n(p + q);
+         aloc 1          ; create implicit variable
+         ja   @L0        ; jump over thunk
+                         ; start of thunk  ------------+
+@L1:     ld   p          ; get p                       |
+         addr -1         ; add q                       |
+         str  -2         ; store sum in implicit var   |
+         ldc  -2         ; get rel add of implicit var |
+         cora            ; convert to absolute address |
+         ret             ; return this address         |
+                         ; end of thunk    ------------+
+@L0:     ldc  @L1        ; get address of thunk
+         push            ; create parm with this address
+         call @n$ni
+         dloc 2          ; dloc parm and implicit var
+
+
+                      ; n(q);
+         ja   @L2        ; jump over thunk
+
+@L3:     ldc  -1         ; thunk simply returns
+         cora            ; address of q
+         ret
+
+@L2:     ldc  @L3        ; get address of thunk
+         push            ; create parm with this address
+         call @n$ni
+         dloc 1          ; dealloc parm
+
+         ldc  0       ; return 0;
+         reba
+         ret
+         public y
+         public @n$ni
+         public main

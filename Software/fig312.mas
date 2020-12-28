@@ -1,0 +1,4 @@
+         ld   p     ; make ac reg point to n1
+         halt
+n1:      dw   5
+p:       dw   n1    ; this word points to n1

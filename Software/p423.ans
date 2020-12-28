@@ -1,0 +1,19 @@
+; #2a9b 44 147 111 1003 60062
+;Your display should look exactly like this (data from the test 
+;cases replacing the strings):
+;Enter string
+;hello
+;Length = 5
+n
+o
+ln
+SD
+g
+hello
+o
+g
+12ABC
+o
+g
+?
+q

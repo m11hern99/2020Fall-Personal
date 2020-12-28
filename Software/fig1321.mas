@@ -1,0 +1,96 @@
+         !o
+@Coordinates@set$ii:
+         esba
+
+                     ; x = a;
+         ldr  3         ; get a
+         push           ; push it
+         ldr  2         ; get address of x
+         sti            ; pop a into x
+
+                     ; y = b;
+         ldr  4         ; get b
+         push           ; push it
+         ldr  2         ; get address of x
+         addc 1         ; get address of x + 1 (i.e., of y)
+         sti            ; pop b into  y
+
+         reba
+         ret
+;============================================================
+@Coordinates@display$v:
+         esba
+
+                     ; cout << "x = " << x << endl;
+         ldc  @m0       ; get address of @m0
+         sout           ; display string
+         ldr  2         ; get address of x
+         ldi            ; dereference address of x
+         dout           ; display it
+         ldc  '\n'      ; endl
+         aout
+
+                     ; cout << "y = " << y << endl;
+         ldc  @m1       ; get address of @m1
+         sout           ; display string
+         ldr  2         ; get address of x
+         addc 1         ; get address of x + 1 (i.e., of y)
+         ldi            ; dereference address of y
+         dout           ; display it
+         ldc  '\n'      ; endl
+         aout
+
+         reba
+         ret
+;============================================================
+main:    esba
+
+         aloc 2      ; Coordinates c1;
+
+         aloc 2      ; Coordinates c2;
+
+                     ; c1.set(1, 2);
+         ldc  2         ; get constant 2
+         push           ; push it
+         ldc  1         ; get constant 1
+         push           ; push it
+         ldc  -2        ; get relative address of c1
+         cora           ; convert to absolute address
+         push           ; push absolute address of c1
+         call @Coordinates@set$ii
+         dloc 3         ; remove parameters from stack
+
+                     ; c2.set(3, 4);
+         ldc  4         ; get constant 4
+         push           ; push it
+         ldc  3         ; get constant 3
+         push           ; push it
+         ldc  -4        ; get relative address of c2
+         cora           ; convert to absolute address
+         push           ; push absolute address of c2
+         call @Coordinates@set$ii
+         dloc 3         ; remove parameters from stack
+
+                     ; c1.display();
+         ldc  -2        ; get relative address of c1
+         cora           ; convert to absolute address
+         push           ; push absolute address of c1
+         call @Coordinates@display$v
+         dloc 1         ; remove parameter from stack
+
+                     ; c2.display();
+         ldc  -4        ; get relative address of c2
+         cora           ; convert to relative address
+         push           ; push absolute address of c2
+         call @Coordinates@display$v
+         dloc 1         ; remove parameter from stack
+
+         ldc  0      ; return 0;
+         reba
+         ret
+;============================================================
+@m0:     dw   "x = "
+@m1:     dw   "y = "
+         public @Coordinates@set$ii
+         public @Coordinates@display$v
+         public main

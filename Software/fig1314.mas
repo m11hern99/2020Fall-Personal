@@ -1,0 +1,22 @@
+         ; push right hand side of assignment statement
+         ldc  99
+         push
+
+         ; calculate i x 4 (number of words preceding ith row)
+         ld   i
+         push
+         ldc  4   ; get size of second dimension
+         mult
+
+         ; get offset to d[i][j] from beginning of array
+         add  j   ; add second index to get offset of d[i][j]
+         push     ; save it on top of stack
+
+         ; get address of the beginning of d
+         ldc  d
+
+         ; get address of d[i][j]
+         addr -1  ; add top of stack (assuming rel add is -1)
+         dloc 1   ; remove top of stack
+
+         sti      ; pop 99 into d[i][j]

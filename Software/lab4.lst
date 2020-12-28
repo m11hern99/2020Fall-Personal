@@ -1,0 +1,93 @@
+Machine-level Assembler Version 7.1    Mon Nov 30 02:20:34 2020
+
+  LOC    OBJ   SOURCE
+hex*dec
+
+0  *0    8013  loop:	ldc msg1
+1  *1    FFF7  	sout
+2  *2    FFFC  	din
+3  *3    F300  	push
+4  *4    0038  	ld count
+5  *5    303A  	sub one
+6  *6    1038  	st count
+7  *7    C009  	jz loop2
+8  *8    9000  	ja loop
+               
+9  *9    F400  loop2: 	pop
+A  *10   FFFD  	dout
+B  *11   800A  	ldc '\n'
+C  *12   FFFB  	aout
+D  *13   0039  	ld count2
+E  *14   303A  	sub one
+F  *15   1039  	st count2
+10 *16   C012  	jz final
+11 *17   9009  	ja loop2
+               
+12 *18   FFFF  final:	halt
+               
+               
+               
+               
+               
+13 *19   0045  msg1: dw "Enter decimal: "
+14 *20   006E
+15 *21   0074
+16 *22   0065
+17 *23   0072
+18 *24   0020
+19 *25   0064
+1A *26   0065
+1B *27   0063
+1C *28   0069
+1D *29   006D
+1E *30   0061
+1F *31   006C
+20 *32   003A
+21 *33   0020
+22 *34   0000
+23 *35   0044  msg2: dw "Decimals backwards: "
+24 *36   0065
+25 *37   0063
+26 *38   0069
+27 *39   006D
+28 *40   0061
+29 *41   006C
+2A *42   0073
+2B *43   0020
+2C *44   0062
+2D *45   0061
+2E *46   0063
+2F *47   006B
+30 *48   0077
+31 *49   0061
+32 *50   0072
+33 *51   0064
+34 *52   0073
+35 *53   003A
+36 *54   0020
+37 *55   0000
+38 *56   000A  count: dw 10
+39 *57   000A  count2: dw 10
+3A *58   0001  one: dw 1
+3B *59   ========= end of lab4.mas ===============================
+
+
+         Symbol/Cross-Reference Table
+
+Symbol                   Address     References
+                          (hex)       (hex)
+
+ loop                      0           8  
+ loop2                     9           7   11 
+ final                     12          10 
+ msg1                      13          0  
+ msg2                      23         
+ count                     38          4   6  
+ count2                    39          D   F  
+ one                       3A          5   E  
+
+Input file   = lab4.mas
+Output file  = lab4.mac
+List file    = lab4.lst 
+Number base  = decimal
+Label status = case sensitive

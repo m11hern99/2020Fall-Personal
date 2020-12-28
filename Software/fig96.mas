@@ -1,0 +1,40 @@
+gv:      dw   5
+@f$rpi:                  ;  *pp = &gv;
+         ldc  gv            ; get address of gv
+         push
+         ldr  2             ; get pp
+         sti                ; pop address of gv into *pp
+
+                         ; cout << **pp << endl;
+         ldr  1             ; get pp
+         ldi                ; load *pp
+         ldi                ; load **p
+         dout               ; display it
+         ldc  '\n'          ; newline
+         aout
+
+         ret
+;=============================================================
+main:    aloc 1          ; int *x;
+
+                         ; f(&x);
+         swap
+         st   @spsave
+         swap               ; restore sp
+         ld   @spsave       ; get absolute address of x
+         push               ; create parameter
+         call @f$rpi
+         dloc 1             ; deallocate parameter
+
+                         ; cout << *x << endl;
+         ldr  0             ; get x
+         ldi                ; get *x
+         dout               ; display it
+         ldc  '\n'          ; newline
+         aout
+
+         dloc 1             ; deallocate x
+         ldc  0
+         halt
+@spsave: dw
+         ep   main

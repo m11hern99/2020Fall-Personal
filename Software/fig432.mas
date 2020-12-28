@@ -1,0 +1,7 @@
+         &               ; configure H1 for memory-mapped I/O
+         ld   kbstatus   ; get keyboard status
+         jz   * -1       ; jump if not ready
+         ld   kbdata     ; get character from keyboard
+         halt
+         equ  kbstatus 3000
+         equ  kbdata   3001

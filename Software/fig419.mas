@@ -1,0 +1,34 @@
+loop:    ldc  table      ; get address of table
+         add  index      ; get address of table[index]
+         ldi             ; load table[index]
+         add  sum        ; add sum and table[index]
+         st   sum        ; store result back in sum
+         ld   index
+         add  @1         ; increment index
+         st   index
+         ld   count
+         sub  @1         ; decrement count
+         st   count
+         jnz  loop       ; jump if count not zero
+         ldc  message    ; display sum
+         sout
+         ld   sum
+         dout
+         ldc  '\n'
+         aout
+         halt
+message: dw    "sum = "
+@1:      dw     1
+count:   dw    10
+sum:     dw     0
+index:   dw     0
+table:   dw    56
+         dw    -8
+         dw    444
+         dw    23
+         dw    -233
+         dw    16
+         dw    45
+         dw    -11
+         dw    5
+         dw    7

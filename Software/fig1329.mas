@@ -1,0 +1,166 @@
+         !o
+@A@set$v:
+         esba
+
+                        ; x = 1;
+         ldc  1            ; get constant 1
+         push              ; push it
+         ldr  2            ; get address of object's data
+         addc 1            ; get address of x
+         sti               ; pop 1 from stack into x
+
+         reba
+         ret
+;==============================================================
+@A@display_x$v:
+         esba
+
+                        ; cout << x << endl;
+         ldr  2            ; get address of object's data area
+         addc 1            ; get address of x
+         ldi               ; get x
+         dout              ; display it
+         ldc  '\n'         ; endl
+         aout
+
+         reba
+         ret
+;==============================================================
+@B@set$v:
+         esba
+
+                        ; x = 2;
+         ldc  2            ; get constant 2
+         push              ; push it
+         ldr  2            ; get address of object's data area
+         addc 1            ; get address of x
+         sti               ; pop 2 from stack into x
+
+                        ; y = 3;
+         ldc  3            ; get constant 3
+         push              ; push it
+         ldr  2            ; get address of object's data area
+         addc 2            ; add 2 to get address of y
+         sti               ; pop 3 from stack into y
+
+         reba
+         ret
+;==============================================================
+@B@display_y$v:
+         esba
+
+                        ; cout << y << endl;
+         ldr  2            ; get address of objects data area
+         addc 2            ; add 1 to get address of y
+         ldi               ; get y
+         dout              ; display it
+         ldc  '\n'         ; endl
+         aout
+
+         reba
+         ret
+;==============================================================
+main:    esba
+
+                        ; A a;
+         aloc 2            ; allocate data area for a
+         ldc  @A@vtbl      ; get add of virt function table for A
+         str  -2           ; store this address in data area for a
+
+                        ; A* aptr;
+         aloc 1            ; allocate aptr
+
+                        ; B b;
+         aloc 3            ; allocate for data for b
+         ldc  @B@vtbl      ; get add of virt function table for B
+         str  -6           ; store this address in data area for b
+
+                        ; B* bptr;
+         aloc 1            ; allocate bptr
+
+                        ; aptr = &a;
+         ldc  -2           ; get relative address of a
+         cora              ; convert to absolute address
+         str  -3           ; store in aptr
+
+                        ; aptr -> set();
+         ldr  -3           ; get aptr (address of object)
+         push              ; create parameter
+         ldi               ; get pointer to virt function table
+         ldi               ; get address of virt function
+         cali              ; call virtual function
+         dloc 1            ; remove parameter
+
+                        ; aptr -> display_x();
+         ldr  -3           ; get aptr (address of object)
+         push              ; create parameter
+         call @A@display_x$v ; displays 1
+         dloc 1            ; remove parameter
+
+                        ; aptr = &b;
+         ldc  -6           ; get relative address of b
+         cora              ; convert to absolute address
+         str  -3           ; store in aptr
+
+                        ; aptr -> set();
+         ldr  -3           ; get aptr (address of object)
+         push              ; create parameter
+         ldi               ; get pointer to virt function table
+         ldi               ; get address of virt function
+         cali              ; call virtual function
+         dloc 1            ; remove parameter
+
+                        ; aptr -> display_x();
+         ldr  -3           ; get aptr (address of object)
+         push              ; create parameter
+         call @A@display_x$v  ; displays 2
+         dloc 1            ; remove parameter
+
+                        ; bptr = &b;
+         ldc  -6           ; get relative address of b
+         cora              ; convert to relative address
+         str  -7           ; store in bptr
+
+                        ; bptr -> set();
+         ldr  -7           ; get bptr (address of object)
+         push              ; create parameter
+         ldi               ; get pointer to virt function table
+         ldi               ; get address of virtual function
+         cali              ; call virtual function
+         dloc 1            ; remove parameter
+
+                        ; bptr -> display_x();
+         ldr  -7           ; get bptr (address of object)
+         push              ; create parameter
+         call @A@display_x$v  ; displays 2
+         dloc 1            ; remove parameter
+
+                        ; bptr -> display_y();
+         ldr  -7           ; get bptr (address of object)
+         push              ; create parameter
+         call @B@display_y$v;  ; displays 3
+         dloc 1            ; remove parameter
+
+                        ; bptr ->A::set();
+         ldr  -7           ; get bptr (address of object)
+         push              ; create parameter
+         call @A@set$v
+         dloc 1            ; remove parameter
+
+                        ; bptr -> display_x();
+         ldr  -7           ; get bptr (address of object)
+         push              ; create parameter
+         call @A@display_x$v  ; displays 1
+         dloc 1            ; remove parameter
+
+         ldc  0         ; return 0;
+         reba
+         ret
+;==============================================================
+@A@vtbl: dw   @A@set$v  ; virtual function table for A
+@B@vtbl: dw   @B@set$v  ; virtual function table for B
+         public @A@set$v
+         public @A@display_x$v
+         public @B@set$v
+         public @B@display_y$v
+         public main

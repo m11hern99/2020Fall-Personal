@@ -1,0 +1,147 @@
+         !o
+@A@set$v:
+         esba
+
+                        ; x = 1;
+         ldc  1            ; get constant 1
+         push              ; push it1
+         ldr  2            ; get address of x
+         sti               ; pop 1 from stack into x
+
+         reba
+         ret
+;=============================================================
+@A@display_x$v:
+         esba
+
+                        ; cout << x << endl;
+         ldr  2            ; get address of x
+         ldi               ; get x
+         dout              ; display it
+         ldc  '\n'         ; endl
+         aout
+
+         reba
+         ret
+;=============================================================
+@B@set$v:
+         esba
+
+                        ; x = 2;
+         ldc  2            ; get constant 2
+         push              ; push it
+         ldr  2            ; get address of x
+         sti               ; pop 2 from stack into x
+
+                        ; y = 3;
+         ldc  3            ; get constant 3
+         push              ; push it
+         ldr  2            ; get address of x
+         addc 1            ; add 1 to get address of y
+         sti               ; pop 3 from stack into y
+
+         reba
+         ret
+;=============================================================
+@B@display_y$v:
+         esba
+
+                        ; cout << y << endl;
+         ldr  2            ; get address of x
+         addc 1            ; add 1 to get address of y
+         ldi               ; get y
+         dout              ; display it
+         ldc  '\n'         ; endl
+         aout
+
+         reba
+         ret
+;=============================================================
+main:    esba
+
+         aloc 2         ; A a;
+
+         aloc 1         ; A* aptr
+
+         aloc 3         ; B b;
+
+         aloc 1         ; B* bptr;
+
+                        ; aptr = &a;
+         ldc  -1           ; get relative address of a
+         cora              ; convert to absolute address
+         str  -2           ; store in aptr
+
+                        ; aptr -> set();
+         ldr  -2           ; get aptr (address of object)
+         push              ; create parameter
+         call @A@set$v     ; A-level set function
+         dloc 1            ; remove parameter
+
+                        ; aptr -> display_x();
+         ldr  -2           ; get aptr (address of object)
+         push              ; create parameter
+         call @A@display_x$v  ; displays 1
+         dloc 1            ; remove parameter
+
+                        ; aptr = &b;
+         ldc  -4           ; get relative address of b
+         cora              ; convert to absolute address
+         str  -2           ; store in aptr
+
+                        ; aptr -> set();
+         ldr  -2           ; get aptr (address of object)
+         push              ; create parameter
+         call @A@set$v     ; A-level set function
+         dloc 1            ; remove parameter
+
+                        ; aptr -> display_x();
+         ldr  -2           ; get aptr (address of object)
+         push              ; create parameter
+         call @A@display_x$v  ; displays 1
+         dloc 1            ; remove parameter
+
+                        ; bptr = &b;
+         ldc  -4           ; get relative address of b
+         cora              ; convert to absolute address
+         str  -5           ; store in bptr
+
+                        ; bptr -> set();
+         ldr  -5           ; get bptr (address of object)
+         push              ; create parameter
+         call @B@set$v
+         dloc 1            ; remove parameter
+
+                        ; bptr -> display_x();
+         ldr  -5           ; get bptr (address of object)
+         push              ; create parameter
+         call @A@display_x$v  ; displays 2
+         dloc 1            ; remove parameter
+
+                        ; bptr -> display_y();
+         ldr  -5           ; get bptr (address of object
+         push              ; create parameter
+         call @B@display_y$v  ; displays 3
+         dloc 1            ; remove parameter
+
+                        ; bptr ->A::set();
+         ldr  -5           ; get bptr (address of object)
+         push              ; create parameter
+         call @A@set$v
+         dloc 1            ; remove parameter
+
+                        ; bptr -> display_x();
+         ldr  -5           ; get bptr (address of object)
+         push              ; create parameter
+         call @A@display_x$v  ; displays 1
+         dloc 1            ; remove parameter
+
+         ldc  0         ; return 0;
+         reba
+         ret
+;=============================================================
+         public @A@set$v
+         public @A@display_x$v
+         public @B@set$v
+         public @B@display_y$v
+         public main

@@ -1,0 +1,14 @@
+if test "$1" = "" 
+then
+echo Error: Log file basename not specified
+echo Format: tlog logfile_basename
+else
+if test -f $1.rpt
+then
+rm $1.rpt
+fi
+for args in $1.*
+   do
+     crc -d$2 $args
+   done
+fi

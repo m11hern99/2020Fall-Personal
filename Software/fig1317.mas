@@ -1,0 +1,110 @@
+         !o
+@set$p11Coordinatesii:
+         esba
+
+                     ; p -> x = a;
+         ldr  3         ; get a
+         push           ; push a
+         ldr  2         ; get p
+         sti            ; pop a to location p points to
+
+                     ; p -> y = b;
+         ldr  4         ; get b
+         push           ; push b
+         ldr  2         ; get p
+         addc 1         ; get p + 1
+         sti            ; pop b to location  p + 1 points to
+
+         reba
+         ret
+;===========================================================
+@display$p11Coordinates:
+         esba
+
+                     ; cout << "x = " << p -> x << endl;
+         ldc  @m0       ; get address of @m0
+         sout           ; display string
+         ldr  2         ; get p
+         ldi            ; get *p
+         dout           ; display it
+         ldc  '\n'      ; endl
+         aout
+
+                     ; cout << "y = " << p -> y << endl;
+         ldc  @m1       ; get address of @m1
+         sout           ; display string
+         ldr  2         ; get p
+         addc 1         ; get p + 1 (address of p -> y)
+         ldi            ; get *(p + 1)
+         dout           ; display it
+         ldc  '\n'      ; endl
+         aout
+
+         reba
+         ret
+;===========================================================
+main:    esba
+
+         aloc 2      ; Coordinates c1;
+
+         aloc 2      ; Coordinates c2;
+
+                     ; set(&c1, 1, 2);
+         ldc  2         ; get constant 2
+         push           ; push it
+         ldc  1         ; get constant 1
+         push           ; push it
+         ldc  -2        ; get relative address of c1
+         cora           ; convert to absolute address
+         push           ; push absolute address of c1
+         call @set$p11Coordinatesii
+         dloc 3         ; remove parameters from stack
+
+                     ; set(&c2, 3, 4);
+         ldc  4         ; get constant 4
+         push           ; push it
+         ldc  3         ; get constant 3
+         push           ; push it
+         ldc  -4        ; get relative address of c2
+         cora           ; convert to absolute address
+         push           ; push absolute address of c2
+         call @set$p11Coordinatesii
+         dloc 3         ; remove parameters from stack
+
+                     ; display(&c1);
+         ldc  -2        ; get relative address of c1
+         cora           ; convert to absolute address
+         push           ; push absolute address of c1
+         call @display$p11Coordinates
+         dloc 1         ; remove parameter from stack
+
+                     ; display(&c2);
+         ldc  -4        ; get relative address of c2
+         cora           ; convert to relative address
+         push           ; push absolute address of c2
+         call @display$p11Coordinates
+         dloc 1         ; remove parameter from stack
+
+                     ; c1.y = 22;
+         ldc  22        ; get constant 22
+         push           ; push it
+         ldc  -1        ; get relative address of c1.y
+         cora           ; convert to absolute address
+         sti            ; pop 22 into c1.y
+
+                     ; display(&c1);
+         ldc  -2        ; get relative address of c1
+         cora           ; convert to absolute address
+         push           ; push absolute address of c1
+         call @display$p11Coordinates
+         dloc 1         ; remove parameter from stack
+
+         ldc  0      ; return 0;
+         reba
+         ret
+;===========================================================
+@m0:     dw   "x = "
+@m1:     dw   "y = "
+         public @set$p11Coordinatesii
+         public @display$p11Coordinates
+         public main

@@ -1,0 +1,902 @@
+Machine-level Assembler Version 7.1    Mon Dec 14 12:08:48 2020
+
+  LOC    OBJ   SOURCE
+hex*dec
+
+               !snew
+               
+0  *0    81F4  		ldc msg0
+1  *1    FFF7  		sout
+2  *2    800A  		ldc '\n'
+3  *3    FFFB  		aout
+4  *4    800A  		ldc '\n'
+5  *5    FFFB  		aout
+6  *6    906D  		ja ask
+               
+7  *7    0506  reset:		ld @a
+8  *8    14F3  		st xlength
+9  *9    14F4  		st ylength
+A  *10   14FB  		st index
+B  *11   0505  		ld @0
+C  *12   1296  		st temp
+D  *13   1299  		st xpoint
+E  *14   129A  		st ypoint
+F  *15   1298  		st yflag
+10 *16   1297  		st xflag
+11 *17   14F5  		st zlength
+12 *18   14F7  		st zindex
+13 *19   14F6  		st zoutlength
+14 *20   14F9  		st carry
+15 *21   14FA  		st tempIndex
+16 *22   14F8  		st count
+17 *23   800A  		ldc '\n'
+18 *24   FFFB  		aout
+19 *25   901A  		ja rxin
+               
+1A *26   0505  rxin:		ld @0
+1B *27   F300  		push
+1C *28   829B  		ldc xin
+1D *29   24FB  		add index
+1E *30   F200  		sti
+1F *31   04FB  		ld index
+20 *32   24FE  		add one
+21 *33   14FB  		st index
+22 *34   3507  		sub @50
+23 *35   C025  		jz ryin
+24 *36   901A  		ja rxin
+               
+25 *37   0505  ryin:		ld @0
+26 *38   F300  		push
+27 *39   82FF  		ldc yin
+28 *40   2296  		add temp
+29 *41   F200  		sti
+2A *42   0296  		ld temp
+2B *43   24FE  		add one
+2C *44   1296  		st temp
+2D *45   3507  		sub @50
+2E *46   C030  		jz rx
+2F *47   9025  		ja ryin
+               
+30 *48   0505  rx:		ld @0
+31 *49   F300  		push
+32 *50   83C7  		ldc x
+33 *51   2297  		add xflag
+34 *52   F200  		sti
+35 *53   0297  		ld xflag
+36 *54   24FE  		add one
+37 *55   1297  		st xflag
+38 *56   3507  		sub @50
+39 *57   C03B  		jz ry
+3A *58   9030  		ja rx
+               
+3B *59   0505  ry:		ld @0
+3C *60   F300  		push
+3D *61   842B  		ldc y
+3E *62   2298  		add yflag
+3F *63   F200  		sti
+40 *64   0298  		ld yflag
+41 *65   24FE  		add one
+42 *66   1298  		st yflag
+43 *67   3507  		sub @50
+44 *68   C046  		jz rz
+45 *69   903B  		ja ry
+               
+46 *70   0505  rz:		ld @0
+47 *71   F300  		push
+48 *72   848F  		ldc z
+49 *73   24F5  		add zlength
+4A *74   F200  		sti
+4B *75   04F5  		ld zlength
+4C *76   24FE  		add one
+4D *77   14F5  		st zlength
+4E *78   3507  		sub @50
+4F *79   C051  		jz rzout
+50 *80   9046  		ja rz
+               
+51 *81   0505  rzout:		ld @0
+52 *82   F300  		push
+53 *83   8363  		ldc zout
+54 *84   24F6  		add zoutlength
+55 *85   F200  		sti
+56 *86   04F6  		ld zoutlength
+57 *87   24FE  		add one
+58 *88   14F6  		st zoutlength
+59 *89   3507  		sub @50
+5A *90   C05C  		jz reset2
+5B *91   9051  		ja rzout
+               
+5C *92   0506  reset2:		ld @a
+5D *93   14F3  		st xlength
+5E *94   14F4  		st ylength
+5F *95   14FB  		st index
+60 *96   0505  		ld @0
+61 *97   1296  		st temp
+62 *98   1299  		st xpoint
+63 *99   129A  		st ypoint
+64 *100  1298  		st yflag
+65 *101  1297  		st xflag
+66 *102  14F5  		st zlength
+67 *103  14F7  		st zindex
+68 *104  14F6  		st zoutlength
+69 *105  14F9  		st carry
+6A *106  14FA  		st tempIndex
+6B *107  14F8  		st count
+6C *108  906D  		ja ask
+               
+               
+6D *109  8214  ask:		ldc msg1
+6E *110  FFF7  		sout
+6F *111  FFFA  		ain
+70 *112  1296  		st temp
+71 *113  34FF  		sub yes
+72 *114  C076  		jz input
+73 *115  0296  		ld temp
+74 *116  3500  		sub no
+75 *117  C1F3  		jz final
+               
+76 *118  8264  input: 		ldc msg2
+77 *119  FFF7  		sout
+78 *120  829B  		ldc xin
+79 *121  FFF6  		sin
+7A *122  826E  		ldc msg3
+7B *123  FFF7  		sout
+7C *124  82FF  		ldc yin
+7D *125  FFF6  		sin
+7E *126  907F  		ja leadingZX
+               
+7F *127  04FB  leadingZX:	ld index
+80 *128  24FE  		add one
+81 *129  14FB  		st index
+82 *130  829B  		ldc xin
+83 *131  24FB  		add index
+84 *132  F100  		ldi
+85 *133  3501  		sub zero
+86 *134  D088  		jnz sortX
+87 *135  907F  		ja leadingZX
+               
+88 *136  829B  sortX:		ldc xin
+89 *137  24FB  		add index
+8A *138  F100  		ldi
+8B *139  C0DC  		jz reset4Y
+8C *140  1296  		st temp
+8D *141  34FC  		sub neg
+8E *142  C09F  		jz flagX
+8F *143  0296  		ld temp	
+90 *144  34FD  		sub p
+91 *145  C0A2  		jz pointX
+92 *146  0296  		ld temp
+93 *147  3504  		sub @48
+94 *148  F300  		push
+95 *149  04F3  		ld xlength
+96 *150  24FE  		add one
+97 *151  14F3  		st xlength
+98 *152  83C7  		ldc x
+99 *153  24F3  		add xlength
+9A *154  F200  		sti
+9B *155  04FB  		ld index
+9C *156  24FE  		add one
+9D *157  14FB  		st index
+9E *158  9088  		ja sortX
+               		
+9F *159  04FE  flagX:		ld one
+A0 *160  1297  		st xflag
+A1 *161  907F  		ja leadingZX
+               
+A2 *162  04FB  pointX:		ld index
+A3 *163  14FA  		st tempIndex    
+A4 *164  90A5  		ja lengthX
+               
+A5 *165  829B  lengthX:	ldc xin
+A6 *166  24FB  		add index
+A7 *167  F100  		ldi
+A8 *168  C0AD  		jz pX 
+A9 *169  04FB  		ld index
+AA *170  24FE  		add one
+AB *171  14FB  		st index
+AC *172  90A5  		ja lengthX
+               
+AD *173  04FB  pX:		ld index 
+AE *174  34FE  		sub one 
+AF *175  14FB  		st index  
+B0 *176  90B1  		ja insertX
+               
+B1 *177  04FA  insertX:	ld tempIndex
+B2 *178  34FB  		sub index
+B3 *179  C0DC  		jz reset4Y
+B4 *180  829B  		ldc xin
+B5 *181  24FB  		add index
+B6 *182  F100  		ldi
+B7 *183  3501  		sub zero
+B8 *184  D0BD  		jnz pushX
+B9 *185  04FB  		ld index
+BA *186  34FE  		sub one
+BB *187  14FB  		st index
+BC *188  90B1  		ja insertX
+               
+BD *189  04FB  pushX:		ld index
+BE *190  34FA  		sub tempIndex
+BF *191  C0CD  		jz popX
+C0 *192  829B  		ldc xin
+C1 *193  24FB  		add index
+C2 *194  F100  		ldi
+C3 *195  F300  		push
+C4 *196  0299  		ld xpoint
+C5 *197  24FE  		add one
+C6 *198  1299  		st xpoint
+C7 *199  0299  		ld xpoint
+C8 *200  1296  		st temp
+C9 *201  04FB  		ld index
+CA *202  34FE  		sub one
+CB *203  14FB  		st index
+CC *204  90BD  		ja pushX
+               
+CD *205  F400  popX:		pop
+CE *206  3504  		sub @48
+CF *207  F300  		push
+D0 *208  0296  		ld temp
+D1 *209  34FE  		sub one
+D2 *210  1296  		st temp
+D3 *211  04F3  		ld xlength
+D4 *212  24FE  		add one
+D5 *213  14F3  		st xlength
+D6 *214  83C7  		ldc x
+D7 *215  24F3  		add xlength
+D8 *216  F200  		sti
+D9 *217  0296  		ld temp
+DA *218  C0DC  		jz reset4Y
+DB *219  90CD  		ja popX
+               
+DC *220  04FB  reset4Y:	ld index
+DD *221  34FB  		sub index
+DE *222  34FE  		sub one
+DF *223  14FB  		st index
+E0 *224  0296  		ld temp 
+E1 *225  3296  		sub temp
+E2 *226  1296  		st temp
+E3 *227  04FA  		ld tempIndex
+E4 *228  34FA  		sub tempIndex
+E5 *229  14FA  		st tempIndex
+E6 *230  90E7  		ja leadingZY
+               
+E7 *231  04FB  leadingZY:	ld index
+E8 *232  24FE  		add one
+E9 *233  14FB  		st index
+EA *234  82FF  		ldc yin
+EB *235  24FB  		add index
+EC *236  F100  		ldi
+ED *237  3501  		sub zero
+EE *238  D0F0  		jnz sortY
+EF *239  90E7  		ja leadingZY
+               
+F0 *240  82FF  sortY:		ldc yin
+F1 *241  24FB  		add index
+F2 *242  F100  		ldi
+F3 *243  C144  		jz setzlength
+F4 *244  1296  		st temp
+F5 *245  34FC  		sub neg
+F6 *246  C107  		jz flagY
+F7 *247  0296  		ld temp	
+F8 *248  34FD  		sub p
+F9 *249  C10A  		jz pointY
+FA *250  0296  		ld temp
+FB *251  3504  		sub @48
+FC *252  F300  		push
+FD *253  04F4  		ld ylength
+FE *254  24FE  		add one
+FF *255  14F4  		st ylength
+100*256  842B  		ldc y
+101*257  24F4  		add ylength
+102*258  F200  		sti
+103*259  04FB  		ld index
+104*260  24FE  		add one
+105*261  14FB  		st index
+106*262  90F0  		ja sortY
+               
+107*263  04FE  flagY:		ld one
+108*264  1298  		st yflag
+109*265  90E7  		ja leadingZY
+               
+10A*266  04FB  pointY:		ld index
+10B*267  14FA  		st tempIndex 
+10C*268  910D  		ja lengthY
+               
+10D*269  82FF  lengthY:	ldc yin
+10E*270  24FB  		add index
+10F*271  F100  		ldi
+110*272  C115  		jz pY
+111*273  04FB  		ld index
+112*274  24FE  		add one
+113*275  14FB  		st index
+114*276  910D  		ja lengthY
+               
+115*277  04FB  pY:		ld index 
+116*278  34FE  		sub one 
+117*279  14FB  		st index 
+118*280  9119  		ja insertY
+               
+119*281  04FA  insertY:	ld tempIndex
+11A*282  34FB  		sub index
+11B*283  C144  		jz setzlength
+11C*284  82FF  		ldc yin
+11D*285  24FB  		add index
+11E*286  F100  		ldi
+11F*287  3501  		sub zero
+120*288  D125  		jnz pushY
+121*289  04FB  		ld index
+122*290  34FE  		sub one
+123*291  14FB  		st index
+124*292  9119  		ja insertY
+               
+125*293  04FB  pushY:		ld index
+126*294  34FA  		sub tempIndex
+127*295  C135  		jz popY
+128*296  82FF  		ldc yin
+129*297  24FB  		add index
+12A*298  F100  		ldi
+12B*299  F300  		push
+12C*300  029A  		ld ypoint
+12D*301  24FE  		add one
+12E*302  129A  		st ypoint
+12F*303  029A  		ld ypoint
+130*304  1296  		st temp
+131*305  04FB  		ld index
+132*306  34FE  		sub one
+133*307  14FB  		st index
+134*308  9125  		ja pushY
+               
+135*309  F400  popY:		pop
+136*310  3504  		sub @48
+137*311  F300  		push
+138*312  0296  		ld temp
+139*313  34FE  		sub one
+13A*314  1296  		st temp
+13B*315  04F4  		ld ylength
+13C*316  24FE  		add one
+13D*317  14F4  		st ylength
+13E*318  842B  		ldc y
+13F*319  24F4  		add ylength
+140*320  F200  		sti
+141*321  0296  		ld temp
+142*322  C144  		jz setzlength
+143*323  9135  		ja popY
+               
+144*324  04F3  setzlength:	ld xlength
+145*325  24F4  		add ylength
+146*326  24FE  		add one
+147*327  14F5  		st zlength
+148*328  9149  		ja setVars
+               
+149*329  04F3  setVars:	ld xlength
+14A*330  14FA  		st tempIndex
+14B*331  914C  		ja calculate
+               
+14C*332  842B  calculate:	ldc y
+14D*333  24F4  		add ylength
+14E*334  F100  		ldi
+14F*335  F300  		push
+150*336  9151  		ja multi
+               
+151*337  83C7  multi:		ldc x
+152*338  24FA  		add tempIndex
+153*339  F100  		ldi
+154*340  F800  		mul
+155*341  1296  		st temp
+156*342  04FA  		ld tempIndex
+157*343  24F4  		add ylength
+158*344  24FE  		add one
+159*345  14FB  		st index
+15A*346  848F  		ldc z
+15B*347  24FB  		add index
+15C*348  F100  		ldi
+15D*349  2296  		add temp
+15E*350  24F9  		add carry
+15F*351  F300  		push
+160*352  0502  		ld ten
+161*353  F900  		div_mod
+162*354  14F9  		st carry
+163*355  848F  		ldc z
+164*356  24FB  		add index
+165*357  F200  		sti
+166*358  04FA  		ld tempIndex
+167*359  34FE  		sub one
+168*360  B16B  		jn setY
+169*361  14FA  		st tempIndex
+16A*362  914C  		ja calculate
+               
+16B*363  848F  setY:		ldc z
+16C*364  24FB  		add index
+16D*365  34FE  		sub one
+16E*366  F100  		ldi
+16F*367  24F9  		add carry
+170*368  F300  		push
+171*369  848F  		ldc z
+172*370  24FB  		add index
+173*371  34FE  		sub one
+174*372  F200  		sti
+175*373  04F9  		ld carry
+176*374  34F9  		sub carry
+177*375  14F9  		st carry
+178*376  04F4  		ld ylength
+179*377  34FE  		sub one
+17A*378  B17F  		jn reset4Z 
+17B*379  14F4  		st ylength
+17C*380  04F3  		ld xlength
+17D*381  14FA  		st tempIndex
+17E*382  914C  		ja calculate
+               
+17F*383  04FB  reset4Z:	ld index
+180*384  34FB  		sub index
+181*385  14FB  		st index
+182*386  9183  		ja checkN
+               	
+183*387  0297  checkN:		ld xflag
+184*388  2298  		add yflag
+185*389  F300  		push
+186*390  0503  		ld two
+187*391  F900  		div_mod
+188*392  F400  		pop
+189*393  C193  		jz leadingZZ
+18A*394  04FC  		ld neg
+18B*395  F300  		push
+18C*396  8363  		ldc zout
+18D*397  24F7  		add zindex
+18E*398  F200  		sti
+18F*399  04F7  		ld zindex
+190*400  24FE  		add one
+191*401  14F7  		st zindex
+192*402  9193  		ja leadingZZ
+               	
+193*403  848F  leadingZZ:	ldc z
+194*404  24FB  		add index
+195*405  F100  		ldi
+196*406  3505  		sub @0
+197*407  D19C  		jnz storeZout
+198*408  04FB  		ld index
+199*409  24FE  		add one
+19A*410  14FB  		st index
+19B*411  9193  		ja leadingZZ
+               	
+19C*412  848F  storeZout:	ldc z
+19D*413  24FB  		add index
+19E*414  F100  		ldi
+19F*415  2504  		add @48
+1A0*416  1296  		st temp
+1A1*417  0296  		ld temp
+1A2*418  F300  		push
+1A3*419  8363  		ldc zout
+1A4*420  24F7  		add zindex
+1A5*421  F200  		sti
+1A6*422  04F5  		ld zlength
+1A7*423  34FB  		sub index
+1A8*424  C1B8  		jz markP
+1A9*425  04FB  		ld index
+1AA*426  24FE  		add one
+1AB*427  14FB  		st index
+1AC*428  04F7  		ld zindex
+1AD*429  24FE  		add one
+1AE*430  14F7  		st zindex
+1AF*431  919C  		ja storeZout
+               
+1B0*432  8363  zoutL:		ldc zout
+1B1*433  24F6  		add zoutlength
+1B2*434  F100  		ldi
+1B3*435  C1BD  		jz storeIn
+1B4*436  04F6  		ld zoutlength	
+1B5*437  24FE  		add one
+1B6*438  14F6  		st zoutlength
+1B7*439  91B0  		ja zoutL	
+               		
+               
+1B8*440  0299  markP:		ld xpoint
+1B9*441  229A  		add ypoint
+1BA*442  1299  		st xpoint
+1BB*443  C1E4  		jz display
+1BC*444  D1B0  		jnz zoutL
+               
+1BD*445  04F6  storeIn:	ld zoutlength
+1BE*446  3299  		sub xpoint
+1BF*447  1299  		st xpoint
+1C0*448  04F6  		ld zoutlength
+1C1*449  34FE  		sub one
+1C2*450  1296  		st temp
+1C3*451  91C4  		ja stackP
+               
+1C4*452  8363  stackP:		ldc zout
+1C5*453  2296  		add temp
+1C6*454  F100  		ldi
+1C7*455  F300  		push
+1C8*456  04F8  		ld count
+1C9*457  24FE  		add one
+1CA*458  14F8  		st count
+1CB*459  0299  		ld xpoint
+1CC*460  3296  		sub temp
+1CD*461  C1D2  		jz pushDec
+1CE*462  0296  		ld temp
+1CF*463  34FE  		sub one
+1D0*464  1296  		st temp
+1D1*465  91C4  		ja stackP
+               		
+1D2*466  04FD  pushDec:	ld p
+1D3*467  F300  		push
+1D4*468  04F8  		ld count
+1D5*469  24FE  		add one
+1D6*470  14F8  		st count
+1D7*471  91D8  		ja popP
+               
+1D8*472  8363  popP:		ldc zout
+1D9*473  2296  		add temp
+1DA*474  F200  		sti
+1DB*475  8363  		ldc zout
+1DC*476  04F8  		ld count
+1DD*477  34FE  		sub one
+1DE*478  C1E4  		jz display
+1DF*479  14F8  		st count
+1E0*480  0296  		ld temp
+1E1*481  24FE  		add one
+1E2*482  1296  		st temp
+1E3*483  91D8  		ja popP
+               				
+               
+1E4*484  04FB  display:	ld index	
+1E5*485  34FB  		sub index
+1E6*486  14FB  		st index
+1E7*487  8278  		ldc msg4
+1E8*488  FFF7  		sout
+1E9*489  91EA  		ja display2
+               
+1EA*490  8363  display2: 	ldc zout
+1EB*491  24FB  		add index
+1EC*492  F100  		ldi
+1ED*493  C007  		jz reset
+1EE*494  FFFB  		aout
+1EF*495  04FB  		ld index
+1F0*496  24FE  		add one
+1F1*497  14FB  		st index
+1F2*498  91EA  		ja display2
+               
+1F3*499  FFFF  final: 		halt
+               
+1F4*500  0046  msg0: dw "Floating point multiplication. "
+1F5*501  006C
+1F6*502  006F
+1F7*503  0061
+1F8*504  0074
+1F9*505  0069
+1FA*506  006E
+1FB*507  0067
+1FC*508  0020
+1FD*509  0070
+1FE*510  006F
+1FF*511  0069
+200*512  006E
+201*513  0074
+202*514  0020
+203*515  006D
+204*516  0075
+205*517  006C
+206*518  0074
+207*519  0069
+208*520  0070
+209*521  006C
+20A*522  0069
+20B*523  0063
+20C*524  0061
+20D*525  0074
+20E*526  0069
+20F*527  006F
+210*528  006E
+211*529  002E
+212*530  0020
+213*531  0000
+214*532  0044  msg1: dw "Do you have a floating point multiplication problem. E
+215*533  006F
+216*534  0020
+217*535  0079
+218*536  006F
+219*537  0075
+21A*538  0020
+21B*539  0068
+21C*540  0061
+21D*541  0076
+21E*542  0065
+21F*543  0020
+220*544  0061
+221*545  0020
+222*546  0066
+223*547  006C
+224*548  006F
+225*549  0061
+226*550  0074
+227*551  0069
+228*552  006E
+229*553  0067
+22A*554  0020
+22B*555  0070
+22C*556  006F
+22D*557  0069
+22E*558  006E
+22F*559  0074
+230*560  0020
+231*561  006D
+232*562  0075
+233*563  006C
+234*564  0074
+235*565  0069
+236*566  0070
+237*567  006C
+238*568  0069
+239*569  0063
+23A*570  0061
+23B*571  0074
+23C*572  0069
+23D*573  006F
+23E*574  006E
+23F*575  0020
+240*576  0070
+241*577  0072
+242*578  006F
+243*579  0062
+244*580  006C
+245*581  0065
+246*582  006D
+247*583  002E
+248*584  0020
+249*585  0045
+24A*586  006E
+24B*587  0074
+24C*588  0065
+24D*589  0072
+24E*590  0020
+24F*591  0079
+250*592  0020
+251*593  0066
+252*594  006F
+253*595  0072
+254*596  0020
+255*597  0079
+256*598  0065
+257*599  0073
+258*600  002C
+259*601  0020
+25A*602  006E
+25B*603  0020
+25C*604  0066
+25D*605  006F
+25E*606  0072
+25F*607  0020
+260*608  006E
+261*609  003A
+262*610  0020
+263*611  0000
+264*612  0045  msg2: dw "Enter x: "
+265*613  006E
+266*614  0074
+267*615  0065
+268*616  0072
+269*617  0020
+26A*618  0078
+26B*619  003A
+26C*620  0020
+26D*621  0000
+26E*622  0045  msg3: dw "Enter y: "
+26F*623  006E
+270*624  0074
+271*625  0065
+272*626  0072
+273*627  0020
+274*628  0079
+275*629  003A
+276*630  0020
+277*631  0000
+278*632  0054  msg4: dw "The answer to your input is: "
+279*633  0068
+27A*634  0065
+27B*635  0020
+27C*636  0061
+27D*637  006E
+27E*638  0073
+27F*639  0077
+280*640  0065
+281*641  0072
+282*642  0020
+283*643  0074
+284*644  006F
+285*645  0020
+286*646  0079
+287*647  006F
+288*648  0075
+289*649  0072
+28A*650  0020
+28B*651  0069
+28C*652  006E
+28D*653  0070
+28E*654  0075
+28F*655  0074
+290*656  0020
+291*657  0069
+292*658  0073
+293*659  003A
+294*660  0020
+295*661  0000
+296*662  0000  temp: dw 0
+297*663  0000  xflag: dw 0
+298*664  0000  yflag: dw 0
+299*665  0000  xpoint: dw 0
+29A*666  0000  ypoint: dw 0
+29B*667  0000  xin: dw 100 dup 0
+2FF*767  0000  yin: dw 100 dup 0
+363*867  0000  zout: dw 100 dup 0
+3C7*967  0000  x: dw 100 dup 0
+42B*1067 0000  y: dw 100 dup 0
+48F*1167 0000  z: dw 100 dup 0
+4F3*1267 FFFF  xlength: dw -1
+4F4*1268 FFFF  ylength: dw -1
+4F5*1269 0000  zlength: dw 0
+4F6*1270 0000  zoutlength: dw 0
+4F7*1271 0000  zindex: dw 0
+4F8*1272 0000  count: dw 0
+4F9*1273 0000  carry: dw 0
+4FA*1274 0000  tempIndex: dw 0 
+4FB*1275 FFFF  index: dw -1
+4FC*1276 002D  neg: dw 45
+4FD*1277 002E  p: dw 46
+4FE*1278 0001  one: dw 1
+4FF*1279 0079  yes: dw 121
+500*1280 006E  no: dw 110
+501*1281 0030  zero: dw 48
+502*1282 000A  ten: dw 10
+503*1283 0002  two: dw 2
+504*1284 0030  @48: dw 48
+505*1285 0000  @0: dw 0
+506*1286 FFFF  @a: dw -1
+507*1287 0064  @50: dw 100
+508*1288 ========= end of fm.mas =================================
+
+
+         Symbol/Cross-Reference Table
+
+Symbol                   Address     References
+                          (hex)       (hex)
+
+ reset                     7           1ED
+ rxin                      1A          19  24 
+ ryin                      25          23  2F 
+ rx                        30          2E  3A 
+ ry                        3B          39  45 
+ rz                        46          44  50 
+ rzout                     51          4F  5B 
+ reset2                    5C          5A 
+ ask                       6D          6   6C 
+ input                     76          72 
+ leadingZX                 7F          7E  87  A1 
+ sortX                     88          86  9E 
+ flagX                     9F          8E 
+ pointX                    A2          91 
+ lengthX                   A5          A4  AC 
+ pX                        AD          A8 
+ insertX                   B1          B0  BC 
+ pushX                     BD          B8  CC 
+ popX                      CD          BF  DB 
+ reset4Y                   DC          8B  B3  DA 
+ leadingZY                 E7          E6  EF  109
+ sortY                     F0          EE  106
+ flagY                     107         F6 
+ pointY                    10A         F9 
+ lengthY                   10D         10C 114
+ pY                        115         110
+ insertY                   119         118 124
+ pushY                     125         120 134
+ popY                      135         127 143
+ setzlength                144         F3  11B 142
+ setVars                   149         148
+ calculate                 14C         14B 16A 17E
+ multi                     151         150
+ setY                      16B         168
+ reset4Z                   17F         17A
+ checkN                    183         182
+ leadingZZ                 193         189 192 19B
+ storeZout                 19C         197 1AF
+ zoutL                     1B0         1B7 1BC
+ markP                     1B8         1A8
+ storeIn                   1BD         1B3
+ stackP                    1C4         1C3 1D1
+ pushDec                   1D2         1CD
+ popP                      1D8         1D7 1E3
+ display                   1E4         1BB 1DE
+ display2                  1EA         1E9 1F2
+ final                     1F3         75 
+ msg0                      1F4         0  
+ msg1                      214         6D 
+ msg2                      264         76 
+ msg3                      26E         7A 
+ msg4                      278         1E7
+ temp                      296         C   28  2A  2C  61 
+                                       70  73  8C  8F  92 
+                                       C8  D0  D2  D9  E0 
+                                       E1  E2  F4  F7  FA 
+                                       130 138 13A 141 155
+                                       15D 1A0 1A1 1C2 1C5
+                                       1CC 1CE 1D0 1D9 1E0
+                                       1E2
+ xflag                     297         10  33  35  37  65 
+                                       A0  183
+ yflag                     298         F   3E  40  42  64 
+                                       108 184
+ xpoint                    299         D   62  C4  C6  C7 
+                                       1B8 1BA 1BE 1BF 1CB
+ ypoint                    29A         E   63  12C 12E 12F
+                                       1B9
+ xin                       29B         1C  78  82  88  A5 
+                                       B4  C0 
+ yin                       2FF         27  7C  EA  F0  10D
+                                       11C 128
+ zout                      363         53  18C 1A3 1B0 1C4
+                                       1D8 1DB 1EA
+ x                         3C7         32  98  D6  151
+ y                         42B         3D  100 13E 14C
+ z                         48F         48  15A 163 16B 171
+                                       193 19C
+ xlength                   4F3         8   5D  95  97  99 
+                                       D3  D5  D7  144 149
+                                       17C
+ ylength                   4F4         9   5E  FD  FF  101
+                                       13B 13D 13F 145 14D
+                                       157 178 17B
+ zlength                   4F5         11  49  4B  4D  66 
+                                       147 1A6
+ zoutlength                4F6         13  54  56  58  68 
+                                       1B1 1B4 1B6 1BD 1C0
+ zindex                    4F7         12  67  18D 18F 191
+                                       1A4 1AC 1AE
+ count                     4F8         16  6B  1C8 1CA 1D4
+                                       1D6 1DC 1DF
+ carry                     4F9         14  69  15E 162 16F
+                                       175 176 177
+ tempIndex                 4FA         15  6A  A3  B1  BE 
+                                       E3  E4  E5  10B 119
+                                       126 14A 152 156 166
+                                       169 17D
+ index                     4FB         A   1D  1F  21  5F 
+                                       7F  81  83  89  9B 
+                                       9D  A2  A6  A9  AB 
+                                       AD  AF  B2  B5  B9 
+                                       BB  BD  C1  C9  CB 
+                                       DC  DD  DF  E7  E9 
+                                       EB  F1  103 105 10A
+                                       10E 111 113 115 117
+                                       11A 11D 121 123 125
+                                       129 131 133 159 15B
+                                       164 16C 172 17F 180
+                                       181 194 198 19A 19D
+                                       1A7 1A9 1AB 1E4 1E5
+                                       1E6 1EB 1EF 1F1
+ neg                       4FC         8D  F5  18A
+ p                         4FD         90  F8  1D2
+ one                       4FE         20  2B  36  41  4C 
+                                       57  80  96  9C  9F 
+                                       AA  AE  BA  C5  CA 
+                                       D1  D4  DE  E8  FE 
+                                       104 107 112 116 122
+                                       12D 132 139 13C 146
+                                       158 167 16D 173 179
+                                       190 199 1AA 1AD 1B5
+                                       1C1 1C9 1CF 1D5 1DD
+                                       1E1 1F0
+ yes                       4FF         71 
+ no                        500         74 
+ zero                      501         85  B7  ED  11F
+ ten                       502         160
+ two                       503         186
+ @48                       504         93  CE  FB  136 19F
+ @0                        505         B   1A  25  30  3B 
+                                       46  51  60  196
+ @a                        506         7   5C 
+ @50                       507         22  2D  38  43  4E 
+                                       59 
+
+Input file   = fm.mas
+Output file  = fm.mac
+List file    = fm.lst 
+Config file  = snew.cfg 
+Number base  = decimal
+Label status = case sensitive

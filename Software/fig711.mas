@@ -1,0 +1,14 @@
+legal:
+
+         aloc 1   ; allocate x
+                    
+         ldc  3
+         str  0   ; relative address of x is 0
+     
+         aloc 1   ; allocate y--changes rel add of 
+      
+         ldc  5
+         str  1   ; relative address of x is 1
+      
+         dloc 2
+         ret

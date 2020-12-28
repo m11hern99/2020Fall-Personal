@@ -1,0 +1,20 @@
+table:   dw   3 dup 0
+@tabfun$pi:
+                      ; t[2] = 5;
+         ldc  5          ; get 5
+         push            ; prepare for sti
+         ldc  2          ; get index 2
+         addr 2          ; get address of t[2]
+         sti             ; store 5 in t[2]
+
+         ret
+;============================================================
+
+main:    ldc  table      ; call tabfun(table);
+         push
+         call @tabfun$pi
+         dloc 1
+
+         ldc  0
+         halt
+         ep   main

@@ -1,0 +1,70 @@
+Simulator Assignment
+
+Write a simulator for the following instruction set. 
+
+Opcode         Assembly form          Description
+0                ld   x               ac = mem[x]'
+1                st   x               mem[x] = ac;
+2                add  x               ac = ac + mem[x];
+3                sub  x               ac = ac - mem[x];
+4                ldr  x               ac = mem[x+sp];    
+5                aloc x               sp = sp + x
+6                dloc x               sp = sp - x
+7                din                  decimal input into ac
+8                ldc  x               ac = x;
+9                push                 mem[--sp] = ac;
+A                ret                  pc = mem[sp++];
+B                sout                 output string pointed to by ac
+C                dout                 decimal output from ac
+D                jnz  x               if (ac != 0) pc = x;
+E                call x               mem[--sp] = pc; pc = x;
+F                halt                 terminate
+
+x in the instructions above refers to the rightmost 12 bits of 
+the instruction. All opcodes are 4 bits long, and are in the 4 
+leftmost bits of the instruction. 
+
+Call your simulator mysim (for "my sim"). Test your simulator 
+by running it on mysim.mac.  That is, enter 
+
+     mysim mysim.mac
+
+ mysim.mac has no header. It starts with the first 
+instruction. Your simulator should get the input file from the 
+command line. Do not include any tracing capability in your 
+simulator. Simply simulate the execution of the instructions. On 
+a prompt from the simulated program, enter the number requested.
+ 
+Hand in a printout of your source code and a printout of the 
+output generated when mystest.mac is run on your simulator. 
+
+Structure of your program:
+
+   Get input file base name from command line.
+
+   Open input file
+
+   Read input file into a 4096 slot short array that simulates 
+   memory. Read 2 bytes at a time with each call of fread.  
+
+   Set ac to 0.
+   set pc to 0.
+   set sp to 0.
+
+   Execute the following loop:
+
+       Get instruction pointed to by pc.
+
+       Increment pc.
+
+       Isolate opcode (use bitwise and). 
+
+       Shift opcode to right (use >>).
+
+       Get operand (use bitwise and).
+
+       Use a switch statement based on opcode to switch to code 
+       for opcode. 
+
+       Simulate instruction specified by opcode. If instruction 
+       is halt, then break out of loop.
