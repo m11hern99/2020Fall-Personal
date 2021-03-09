@@ -1,0 +1,14 @@
+         ldc  x        ; ac now contains an address
+         st   y        ; y now contains an address
+         ldi           ; get what ac is pointing to
+         dout          ; display it
+         ldc  '\n'
+         aout
+         ld   y        ; get address in y
+         ldi           ; get what y is pointing to
+         dout          ; display it
+         ldc  '\n'
+         aout
+         halt
+x:       dw   5
+y:       dw   0

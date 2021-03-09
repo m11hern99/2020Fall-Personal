@@ -1,0 +1,42 @@
+x:       dw   0         ; global variable
+fa:      ld   x         ; x = x + x + 2;
+         add  x
+         add  @2
+         st   x
+
+         ret
+; ==================================================
+y:       dw   3         ; global variable
+fb:      ldc  5         ; x = 5;
+         st   x
+
+         ld   @_2       ; y = -2;
+         st   y
+
+         call fa        ; fa()
+
+         ret
+; ==================================================
+main:    call fb        ; fb()
+
+         ldc  @m0       ; cout << "x = " << x  << endl;
+         sout
+         ld   x
+         dout
+         ldc  '\n'
+         aout
+
+         ldc  @m1       ; cout << "y = " << y  << endl;
+         sout
+         ld   y
+         dout
+         ldc  '\n'
+         aout
+
+         ldc  0
+         halt
+@2:      dw   2         ; @2 is a compiler-generated name
+@_2:     dw   -2        ; @_2 is a compiler-generated name
+@m0:     dw   "x = "    ; @m0 is a compiler-generated name
+@m1:     dw   "y = "    ; @m1 is a compiler-generated name
+         ep   main

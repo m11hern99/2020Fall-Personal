@@ -1,0 +1,8 @@
+         public x ;  internal symbol | address    external symbol 
+         extern y ;   ---------------|--------    ----------------
+         ld     x ;         x        |  4               y         
+         add    y ;         z        |  5         
+         st     z ;                  |            
+         halt     ;
+    x:   dw     3 ;
+    z:   dw     0 ;

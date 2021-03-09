@@ -1,0 +1,40 @@
+         !o          ; directive to use optimal inst set
+@mult_shift_add$iui:
+         esba
+
+         ; int product = 0;
+         ldc  0
+         push        ; allocate and initialize product to 0
+
+         ; while (multiplier != 0) {
+@L0:     ldr  3      ; get multiplier
+         jz   @L1
+
+         ; if (multiplier & 1 == 1)          // rightmost bit == 1?
+         ldc  1
+         push
+         ldr  3       ; get multiplier
+         and
+         jz   @L2
+
+         ; product = product + multiplicand;
+         ldr  -1     ; get product
+         addr 2      ; add shifted multiplicand
+         str  -1     ; save produce
+@L2:
+         ; multiplier = multiplier >> 1;
+         ldr  3      ; get multiplier
+         shrl 1
+         str  3      ; save multiplier
+
+         ; multiplicand = multiplicand << 1;
+         ldr  2      ; get multiplicand
+         shll 1      ; shift multiplicand left 1 position
+         str  2      ; save multiplicand
+         ja   @L0
+@L1:
+         ; return product;
+         ldr  -1     ; load product into ac register
+         reba
+         ret
+         public @mult_shift_add$iui

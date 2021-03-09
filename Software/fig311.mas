@@ -1,8 +1,0 @@
-         ld   x
-         ld   y
-         ld   z
-         halt
-x:
-y:
-z:
-         dw    5

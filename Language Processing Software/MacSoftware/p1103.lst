@@ -1,0 +1,46 @@
+a Assembler Version 1.8    Wed Mar  3 19:39:02 2021
+
+  LOC   MACHINE      ASSEMBLY
+hex*dec  CODE          CODE
+
+0  *0    101C  	pc 	x
+1  *1    1001  	pc 	1
+2  *2    1002  	pc	2
+3  *3    1003  	pc	3
+4  *4    1004  	pc 	4
+5  *5    1005  	pc	5
+6  *6    1006  	pc	6
+7  *7    1007  	pc	7
+8  *8    1008  	pc	8
+9  *9    1009  	pc	9
+A  *10   100A  	pc	10
+B  *11   F100  	add	
+C  *12   F100  	add
+D  *13   F100  	add
+E  *14   F100  	add	
+F  *15   F100  	add
+10 *16   F100  	add
+11 *17   F100  	add	
+12 *18   F100  	add
+13 *19   F100  	add
+14 *20   F300  	stav
+15 *21   101D  	pc 	print
+16 *22   FFF7  	sout
+17 *23   001C  	p	x
+18 *24   FFFD  	dout
+19 *25   100A  	pc	'\n'
+1A *26   FFFB  	aout
+1B *27   FFFF  	halt
+               
+               
+1C *28   001C  x:	dw	x   
+1D *29   0078  print: dw "x = " 
+1E *30   0020
+1F *31   003D
+20 *32   0020
+21 *33   0000
+22 *34   ========= end of p1103.a ==========================
+
+asm in  = p1103.a
+asm out = p1103.e
+asm lst = p1103.lst 

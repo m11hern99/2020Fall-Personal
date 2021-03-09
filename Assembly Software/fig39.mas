@@ -1,0 +1,13 @@
+; assembly language program that adds three numbers
+
+         ld   n1     ; get first number
+         add  n2     ; add second number
+         add  n3     ; add third number  <-- insertion
+         st   result ; store sum in memory
+         halt        ; return to operating system
+
+;        data area
+n1:      dw   15     ; first number
+n2:      dw   1      ; second number
+n3:      dw   4      ; third number      <-- insertion
+result:  dw   0      ; store sum here

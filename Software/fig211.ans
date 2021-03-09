@@ -1,9 +1,0 @@
-; Commands are case insensitive if microlevel display is disabled.
-; Disabled is the default setting for sim.
-M
-o
-ln
-g
-R*
-D*
-q

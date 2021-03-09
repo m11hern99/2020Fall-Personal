@@ -1,0 +1,11 @@
+; #87bb 638 367 463 6478 5243
+; Create ks.has with your symbolic microcode.
+; Use the provided ks.cfg (it is in software package). 
+; Test using the provided ksprog.mas (it is in the software package).
+n
+o
+ln
+enable
+sd
+g
+q

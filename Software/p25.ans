@@ -1,9 +1,0 @@
-; Use machine code filename p25.mac. 
-M
-o
-ln
-g
-D*
-R*
-U*
-q

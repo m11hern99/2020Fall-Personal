@@ -1,0 +1,32 @@
+gs:      dw   2 dup 0
+@tests$p11Coordinates:
+         aloc 2      ; Coordinates ls
+
+         ldc  5      ; int li = 5;
+         push
+
+                     ; ls.y = 4;
+         ldc  4         ; get 4
+         str  2         ; store into ls.y
+
+                     ; ps -> y = li;
+         ldr  2         ; get li
+         push           ; push it
+         ldc  1         ; get offset of y field
+         addr 5         ; add ps
+         sti            ; assign li to ps -> y
+         dloc 3         ; deallocate locals
+
+         ret
+;===========================================================
+main:    ldc  gs      ; tests(&gs);
+         push
+         call @tests$p11Coordinates
+         dloc 1
+
+         ldc  3       ; gs.y = 3
+         st   gs + 1
+
+         ldc  0
+         halt
+         ep   main

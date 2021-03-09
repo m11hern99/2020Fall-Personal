@@ -1,0 +1,7 @@
+          ld   x              ; load from location 1000
+          st   dataarea       ; store into location 5
+          st   dataarea + 1   ; store into location 6
+          ld   dataarea - 1   ; load from location 4
+          halt
+dataarea: org  1000
+x:        dw   5

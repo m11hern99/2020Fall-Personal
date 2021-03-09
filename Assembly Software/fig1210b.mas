@@ -1,0 +1,19 @@
+         ; int y;
+@f$pii:  aloc 1         ; allocate y
+
+         ; y = *p + x;
+         ldr  2         ; get p via relative address 2
+         ldi            ; get *p
+         addr 3         ; add x
+         str  0         ; store into y
+
+         ; *p = y;
+         ldr  0         ; get y
+         push           ; changes sp and relative addresses
+         ldr  3         ; get p via relative address 3
+         sti            ; store in *p
+
+         dloc 1         ; deallocate y
+
+         ret
+         public @f$pii

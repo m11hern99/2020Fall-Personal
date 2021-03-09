@@ -1,0 +1,13 @@
+a Assembler Version 1.8    Wed Mar  3 19:00:54 2021
+
+  LOC   MACHINE      ASSEMBLY
+hex*dec  CODE          CODE
+
+0  *0    0005  start: 	p 5
+1  *1    FFFD  	dout
+2  *2    6000  	ja start
+3  *3    ========= end of p1102.a ==========================
+
+asm in  = p1102.a
+asm out = p1102.e
+asm lst = p1102.lst 

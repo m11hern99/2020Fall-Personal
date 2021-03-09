@@ -1,0 +1,10 @@
+Machine-level Assembler Version 7.1    Thu Oct 29 17:56:57 2020
+
+  LOC    OBJ   SOURCE
+hex*dec
+
+0  *0    F6FF           dloc 255
+
+ERROR on line 2 (decimal) of aprog11.mas:
+         dloc 256
+Address or operand out of range

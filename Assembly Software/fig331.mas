@@ -1,0 +1,7 @@
+         ld   x        ; load -1
+x:       dw   -1
+         add  y        ; add 5
+         st   z        ; store result
+         halt
+y:       dw   5
+z:       dw   0

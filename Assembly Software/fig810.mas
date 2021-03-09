@@ -1,0 +1,80 @@
+x:       dw   1
+y:       dw   2
+fv2:     ldc  @m0    ; cout << "z = " << z << endl;
+         sout
+         ldr  1
+         dout
+         ldc  '\n'
+         aout
+
+         ldc  5      ; z = 5;
+         str  1
+
+         ret
+;=========================================================
+                     ; cout << "z = " << z << endl;
+fr2:     ldc  @m1       ; get address of @m1
+         sout           ; display "z ="
+         ldr  1         ; get z
+         ldi            ; dereference z
+         dout           ; display it
+         ldc  '\n'      ; newline
+         aout
+
+         ldc  5      ; z = 5;
+         push
+         ldr  2
+         sti
+
+         ret
+;=========================================================
+main:    ld   x      ; fv2(x);
+         push
+         call fv2
+         dloc 1
+
+         ldc  100    ; fv2(100);
+         push
+         call fv2
+         dloc 1
+
+         ld   x      ; fv2(x+y);
+         add  y
+         push
+         call fv2
+         dloc 1
+
+         ldc  x      ; fr2(x);
+         push
+         call fr2
+         dloc 1
+
+                     ; fr2(100);
+         ldc  100       ; get 100
+         push           ; create and init implicit var on stack
+         swap           ; get sp
+         st   @spsave   ; save it
+         swap           ; restore sp
+         ld   @spsave   ; get address of implicit var on tos
+         push           ; pass this address to fr2
+         call fr2
+         dloc 2         ; deallocate parameter and implicit variable
+
+                     ; fr2(x+y);
+         ld   x         ; get x
+         add  y         ; add y
+         push           ; create and init implicit var on stack
+         swap           ; get sp
+         st   @spsave   ; save it
+         swap           ; restore sp
+         ld   @spsave   ; get address of implicit var on tos
+         push           ; pass this address to fr2
+         call fr2
+         dloc 2         ; deallocate parameter and implicit variable
+
+         ldc  0
+         halt
+@m0:     dw   "z = "
+@m1:     dw   "z = "
+@spsave: dw   0
+         ep   main

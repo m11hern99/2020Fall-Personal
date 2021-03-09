@@ -1,0 +1,7 @@
+x = input('Enter file name to read: ')
+z = input('Enter file name to copy to: ')
+infile = open(x, 'r')
+source = infile.read()
+outfile = open(z, 'w')
+outfile.write(source)
+outfile.close()

@@ -1,0 +1,8 @@
+x:       dw   1
+y:       dw   8
+z:       dw   0
+add:     ld   0
+         add  1
+         st   2
+         halt
+         ep   3

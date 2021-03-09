@@ -1,4 +1,0 @@
-start:   ldc  5
-again:   dout
-         ja   again    ; go back to again
-         halt

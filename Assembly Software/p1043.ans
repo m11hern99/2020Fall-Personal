@@ -1,0 +1,13 @@
+; #f408 0 147 36363 0 53521
+;Display should look exactly like this:
+;hellogoodbye
+n
+o
+a3900t
+dw "hel lo good  by e ; set up cmd line args
+
+o#
+ln
+SD
+g
+q

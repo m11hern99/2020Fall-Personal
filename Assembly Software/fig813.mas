@@ -1,0 +1,52 @@
+x:       dw   1
+@fol$v:  ldc  1         ; x = x + 1;
+         add  x
+         st   x
+
+         ret
+;===========================================
+@fol$i:  ld   x         ; x = x + n;
+         addr 1
+         st   x
+
+         ret
+;===========================================
+@fol$ii: ld   x         ; x = x + n + m;
+         addr 1
+         addr 2
+         st   x
+
+         ret
+;===========================================
+main:    ldc  10        ; fol(10);
+         push
+         call @fol$i
+         dloc 1
+
+         ld   x         ; cout << x << endl;
+         dout
+         ldc  '\n'
+         aout
+
+         call @fol$v    ; fol();
+
+         ld   x         ; cout << x << endl;
+         dout
+         ldc  '\n'
+         aout
+
+         ldc  3         ; fol(2, 3);
+         push
+         ldc  2
+         push
+         call @fol$ii
+         dloc 2
+
+         ld   x         ; cout << x << endl;
+         dout
+         ldc  '\n'
+         aout
+
+         ldc  0
+         halt
+         ep   main

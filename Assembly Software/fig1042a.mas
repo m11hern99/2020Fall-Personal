@@ -1,0 +1,18 @@
+;        module 1
+main:    ldc  0     ; gv = 0;
+         st   gv
+
+         call @f2$v ; f2();
+
+         ldc  1     ; sgv = 1;
+         st   sgv
+
+         call @f1$v ; f1();
+
+         ldc  0
+         ret
+         public main
+         extern gv
+         extern sgv
+         extern @f2$v
+         extern @f1$v

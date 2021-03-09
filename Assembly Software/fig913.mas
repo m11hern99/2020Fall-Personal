@@ -1,0 +1,66 @@
+y:       dw   0
+@ref$ri: ldr  1      ; x = x + 5;
+         ldi
+         add  @5
+         push
+         ldr  2
+         sti
+
+         ret
+;========================================================
+@vr$mi:  ldc  5      ; x = x + 5;
+         addr 1
+         str  1
+
+         ret
+;========================================================
+@v$i:    ldc  5      ; x = x + 5;
+         addr 1
+         str  1
+
+         ret
+;========================================================
+cout:    ldc  @m0
+         sout
+         ld   y
+         dout
+         ldc  '\n'
+         aout
+         ret
+;========================================================
+main:    ldc  1      ; y = 1;
+         st   y
+
+         ldc  y      ; ref(y);
+         push
+         call @ref$ri
+         dloc 1
+
+         call cout   ; cout << "y = " << y << endl;
+
+         ldc  1      ; y = 1;
+         st   y
+
+         ld   y      ; vr(y);
+         push
+         call @vr$mi
+         pop
+         st   y
+
+         call cout   ; cout << "y = " << y << endl;
+
+         ldc  1      ; y = 1
+         st   y
+
+         ld   y      ; v(y);
+         push
+         call @v$i
+         dloc 1
+
+         call cout   ; cout << "y = " << y << endl;
+
+         ldc  0
+         halt
+@5:      dw   5
+@m0:     dw   "y = "
+         ep   main

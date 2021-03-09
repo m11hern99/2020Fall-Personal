@@ -1,0 +1,9 @@
+         ld   table
+         add  table + 1
+         add  table + 2
+         st   table - 1
+         halt
+         dw   0
+table:   dw   8
+         dw   6
+         dw   4

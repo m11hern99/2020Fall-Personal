@@ -1,0 +1,42 @@
+         !k             ; use the stack instruction set
+sum:     dw    0         ; int sum;
+@ret_sum$ii:
+         esba
+
+         aspc -1        ; int z;
+                        ; z = x + y;
+         cora -1           ; push address of z
+         pr    2           ; push x
+         pr    3           ; push y
+         add               ; compute x + y
+         stav              ; store sum in z
+                        ; return z;
+         pr   -1           ; push value of z
+         cora  4           ; push address of return area
+         stva              ; save return value in return area
+         reba
+         ret
+;=======================================================
+main:    esba
+                         ; sum = ret_sum(5, 7);
+         pc    sum           ; push address of sum
+         aspc -1             ; allocate return area
+         pc    7             ; create parameters
+         pc    5
+         call  @ret_sum$ii
+         aspc  2             ; deallocate parameters
+         stav                ; store return value in sum
+
+         p     sum       ; cout << sum << endl;
+         dout
+         pc   '\n'
+         aout
+                         
+         cora  4            ; push address of return area
+         pc    0            ; push 0
+         stav               ; store return value in return area
+         reba
+         ret
+         public sum
+         public @ret_sum$ii
+         public main 

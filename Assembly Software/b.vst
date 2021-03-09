@@ -1,0 +1,100 @@
+Vertical Microcode Assembler Version 7.1      Sat Apr 25 08:37:18 2020
+
+  LOC    OBJ    SOURCE
+hex*dec
+
+                /  Basic Instruction Set Vertical Microcode      b.vas
+                
+                / The label indicates the opcode decoded up to that point.
+                / For example, control reaches the label L011 when opcode 
+                / bits 011 have been decoded.   
+                /**************************************************************
+                /           Fetch instruction and increment pc register        
+                /**************************************************************
+0  *0    40006  fetch:      mar    pc
+1  *1    68000              rd
+2  *2    2A4A0              move   ir mdr
+3  *3    018C1              add    pc pc 1 
+                /**************************************************************
+                /           Decode opcode                                      
+                /**************************************************************
+4  *4    2A920              move   dc ir
+5  *5    5803A              bn     L8
+6  *6    32940  L0:         left   dc dc
+7  *7    5800D              bn     L01
+8  *8    32940  L00:        left   dc dc
+9  *9    58012              bn     L001
+A  *10   32940  L000:       left   dc dc
+B  *11   5801C              bn     L0001
+C  *12   50018              ba     L0000
+D  *13   32940  L01:        left   dc dc 
+E  *14   58015              bn     L011 
+F  *15   32940  L010:       left   dc dc 
+10 *16   5802D              bn     L5 
+11 *17   50027              ba     L4          
+12 *18   32940  L001:       left   dc dc 
+13 *19   58024              bn     L3 
+14 *20   50020              ba     L2
+15 *21   32940  L011:       left   dc dc 
+16 *22   58038              bn     L7 
+17 *23   50032              ba     L6
+                /**************************************************************
+                /           Microcode for each instruction                     
+                /**************************************************************
+                L0000:      /-------------------- LD --------------------------
+18 *24   40009              mar    ir
+19 *25   68000              rd 
+1A *26   2A0A0              move   ac mdr
+1B *27   50000              ba     fetch 
+                L0001:      /-------------------- ST --------------------------
+1C *28   29500              move mdr ac
+1D *29   40009              mar ir
+1E *30   70000              wr 
+1F *31   50000              ba     fetch 
+                L2:         /-------------------- MULT ------------------------
+20 *32   40009              mar    ir
+21 *33   68000              rd
+22 *34   12105              mult   ac ac mdr
+23 *35   50000              ba fetch
+                L3:         /-------------------- ADDC ------------------------
+24 *36   1BD22              and    f ir xmask
+25 *37   0210F              add    ac ac f
+26 *38   50000              ba     fetch         
+                L4:         /-------------------- ADDR ------------------------
+27 *39   03D27              add    f ir sp
+28 *40   4000F              mar    f 
+29 *41   68000              rd
+2A *42   2BCA0              move   f mdr
+2B *43   0210F              add    ac ac f 
+2C *44   50000              ba     fetch
+                L5:         /-------------------- JN --------------------------
+2D *45   48100              sz     ac
+2E *46   58030              bn     jn           
+2F *47   50000              ba     fetch 
+30 *48   19922  jn:         and    pc ir xmask
+31 *49   50000              ba     fetch 
+                L6:         /-------------------- SHLL ------------------------
+32 *50   1BD24              and    f ir zmask            / get z field
+33 *51   60000              bz     fetch                 / branch if 0
+34 *52   32100  lloop:      left   ac ac                 / shift ac left
+35 *53   0BDE1              sub    f f 1                 / decrement count
+36 *54   60000              bz     fetch                 / branch if 0
+37 *55   50034              ba     lloop                 / branch
+                L7:         /-------------------- FLIP ------------------------
+38 *56   22100              flip ac ac
+39 *57   50000              ba fetch
+                L8:         /-------------------- PUSH ------------------------
+3A *58   09CE1              sub    sp sp 1
+3B *59   29500              move   mdr ac
+3C *60   40007              mar sp
+3D *61   70000              wr 
+3E *62   50000              ba     fetch
+3F *63   ========== end of b.vas =================================
+
+Input file   = b.vas
+Output file  = b.ver
+List file    = b.vst 
+Config file  = b.cfg 
+Number base  = decimal
+Label status = case sensitive
+Shifter      = one-position

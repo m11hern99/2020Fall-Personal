@@ -1,0 +1,34 @@
+@frec$i: ldr  1        ; if (x == 0)
+         jnz  @L0
+
+         ldc  @m0      ; cout << "B\n";
+         sout
+
+         ja   @L1
+
+@L0:     ldc  @m1      ; cout << "D\n";
+         sout
+
+         ldr  1        ; frec(x-1);
+         sub  @1
+         push
+         call @frec$i
+         dloc 1
+
+         ldc  @m2      ; cout << "U\n";
+         sout
+
+@L1:     ret
+; ==========================================================
+main:    ldc  2        ; frec(2);
+         push
+         call @frec$i
+         dloc 1
+
+         halt
+@m0:     dw   "B\n"
+@m1:     dw   "D\n"
+@m2:     dw   "U\n"
+@1:      dw   1
+         ep   main
+

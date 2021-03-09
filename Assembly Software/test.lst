@@ -1,0 +1,10 @@
+Machine-level Assembler Version 7.1    Wed Mar  3 18:43:00 2021
+
+  LOC    OBJ   SOURCE
+hex*dec
+
+               start:	
+
+ERROR on line 2 (decimal) of test.mas:
+	p	5
+Invalid operation

@@ -1,0 +1,32 @@
+	pc 	x
+	pc 	1
+	pc	2
+	pc	3
+	pc 	4
+	pc	5
+	pc	6
+	pc	7
+	pc	8
+	pc	9
+	pc	10
+	add	
+	add
+	add
+	add	
+	add
+	add
+	add	
+	add
+	add
+	stav
+	pc 	print
+	sout
+	p	x
+	dout
+	pc	'\n'
+	aout
+	halt
+
+
+x:	dw	x   
+print: dw "x = " 

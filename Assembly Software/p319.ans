@@ -1,0 +1,10 @@
+; #f55e 7 147 5 35 28549
+; To test, enter v from within debugger.
+; Your program should output just the sum (no descriptive label)
+; The SD (Source Display) displays the source assembly language program
+n
+o
+ln
+SD
+g
+q

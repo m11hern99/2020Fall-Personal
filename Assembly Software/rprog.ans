@@ -1,0 +1,16 @@
+; #7330 88 93 36 336 24305
+;Use r.has for your microcode
+;r.cfg is in the software package
+;Assemble microcode with
+;   has r
+;Assemble test program rprog.mas with
+;   mas rprog
+;Run sim with
+;   sim rprog
+n
+o
+ln
+enable
+sd
+g
+q

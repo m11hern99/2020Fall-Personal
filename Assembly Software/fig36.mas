@@ -1,0 +1,11 @@
+; assembly language program that adds two numbers
+
+         ld   4     ; get first number <--- address 0
+         add  5     ; add second number
+         st   6     ; store sum in memory
+         halt       ; return to OS     <--- address 3
+
+;        data area
+         dw   15    ; first number     <--- address 4
+         dw   1     ; second number
+         dw   0     ; store sum here   <--- address 6

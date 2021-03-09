@@ -1,0 +1,38 @@
+fc:      aloc 1             ; int dla;
+
+         ldc  7             ; int dlb = 7;
+         push
+
+         ldc  25            ; dla = 25;
+         str  1
+
+         ldc  26            ; dlb = 26;
+         str  0
+
+         ld   @s0_sla       ; cout << sla << endl;
+         dout
+         ldc  '\n'
+         aout
+
+         ld   @s1_slb       ; cout << slb << endl:
+         dout
+         ldc  '\n'
+         aout
+
+         ldc  27            ; sla = 27;
+         st   @s0_sla
+
+         ldc  28            ; sla = 28;
+         st   @s1_slb
+
+         dloc 2             ; remove dla and dlb
+         ret
+; =============================================
+main:    call fc            ; fc();
+
+         call fc            ; fc();
+
+         halt
+@s0_sla: dw   0             ; static local variable sla
+@s1_slb: dw   5             ; static local variable slb
+         ep   main

@@ -1,0 +1,13 @@
+         din       ; input decimal number
+         dout      ; output same decimal number
+         ldc  '\n'
+         aout      ; go to next line
+         hin       ; input hex number
+         dout      ; output decimal equivalent
+         ldc  '\n'
+         aout      ; go to next line
+         ain       ; input ASCII character
+         dout      ; output ASCII code in decimal
+         ldc  '\n'
+         aout      ; go to next line
+         halt

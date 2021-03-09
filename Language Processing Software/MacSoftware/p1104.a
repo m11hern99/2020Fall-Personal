@@ -1,0 +1,33 @@
+
+	pc 	x
+	pwc	1
+	pwc	2
+	add
+	pwc	3
+	add
+	pwc	4
+	add
+	pwc	5
+	add
+	pwc	6
+	add
+	pwc	7
+	add
+	pwc	8
+	add
+	pwc	9
+	add
+	pwc	10
+	add
+	stav
+	pc 	print
+	sout
+	p	x
+	dout
+	pc	'\n'
+	aout
+	halt
+
+
+x:	dw	x   
+print: dw "x = " 

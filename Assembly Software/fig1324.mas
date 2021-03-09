@@ -1,0 +1,124 @@
+         !o
+@A@set$v:
+         esba
+
+                        ; x = 1;
+         ldc  1            ; get constant 1
+         push              ; push it
+         ldr  2            ; get address of x into ac
+         sti               ; pop 1 from stack into x
+
+         reba
+         ret
+;=============================================================
+@A@display_x$v:
+         esba
+
+                        ; cout << x << endl;
+         ldr  2            ; get address of x
+         ldi               ; get x
+         dout              ; output x
+         ldc  '\n'         ; endl
+         aout
+
+         reba
+         ret
+@B@set$v:
+         esba
+
+                        ; x = 2;
+         ldc  2            ; get constant 2
+         push              ; push it
+         ldr  2            ; get address of x
+         sti               ; pop 2 from stack into x
+
+                        ; y = 3;
+         ldc  3            ; get constant 3
+         push              ; push it
+         ldr  2            ; get address of x
+         addc 1            ; add 1 to get address of y
+         sti               ; pop 3 from stack into y
+
+         reba
+         ret
+;=============================================================
+@B@display_y$v:
+         esba
+
+                        ; cout << y << endl;
+         ldr  2            ; get address of x
+         addc 1            ; add 1 to get address of y
+         ldi               ; get y
+         dout              ; display it
+         ldc  '\n'         ; endl
+         aout
+
+         reba
+         ret
+;=============================================================
+main:    esba
+
+                        ; A a;
+         aloc 1            ; allocate x field in a
+
+                        ; a.set();
+         ldc  -1           ; get relative address of a
+         cora              ; convert to absolute address
+         push              ; create implicit parameter
+         call @A@set$v     ; call set function in A
+         dloc 1            ; remove parameter from stack
+
+                        ; a.display_x();
+         ldc  -1           ; get relative address of a
+         cora              ; convert to absolute address
+         push              ; create implicit parameter
+         call @A@display_x$v
+         dloc 1            ; remove parameter from stack
+
+                        ; B b;
+         aloc 2            ; allocate x, y fields in b
+
+                        ; b.set();
+         ldc  -3           ; get relative address of b
+         cora              ; convert to absolute address
+         push              ; create implicit parameter
+         call @B@set$v
+         dloc 1            ; remove parameter from stack
+
+                        ; b.display_x();
+         ldc  -3           ; get relative address of b
+         cora              ; convert to absolute address
+         push              ; create implicit parameter
+         call @A@display_x$v
+         dloc 1            ; remove parameter from stack
+
+                        ; b.display_y();
+         ldc  -3           ; get relative address of b
+         cora              ; convert to absolute address
+         push              ; create implicit parameter
+         call @B@display_y$v
+         dloc 1            ; remove parameter from stack
+
+                        ; b.A::set();
+         ldc  -3           ; get relative address of b
+         cora              ; convert to absolute address
+         push              ; create implicit parameter
+         call @A@set$v
+         dloc 1            ; remove parameter from stack
+
+                        ; b.display_x();
+         ldc  -3           ; get relative address of b
+         cora              ; convert to absolute address
+         push              ; create implicit parameter
+         call @A@display_x$v
+         dloc 1            ; remove parameter from stack
+
+         ldc  0         ; return 0;
+         reba
+         ret
+;=============================================================
+         public @A@set$v
+         public @A@display_x$v
+         public @B@set$v
+         public @B@display_y$v
+         public main

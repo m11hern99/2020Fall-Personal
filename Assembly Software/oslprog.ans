@@ -1,0 +1,12 @@
+; #ce4d 496 212 319 3571 62067
+; Create osl.has with your symbolic microcode.
+; Use the provided osl.cfg (it is in software package). 
+; Test using the provided oslprog.mas (it is in the software package).
+; See oslprog.mas for the  machine instructions that have to be supported.
+n
+o
+ln
+enable
+sd
+g
+q

@@ -1,0 +1,8 @@
+; #0029 14 147 8 68 36029
+; The n command suppresses the trace output.
+n
+o
+ln
+D*
+g
+q

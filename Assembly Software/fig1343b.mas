@@ -1,0 +1,6 @@
+         !o2
+         ld   x      ; 0004
+         mult y      ; FF40 0005  (two-word instruction)
+         halt        ; FFFF
+x:       dw   7      ; 0007
+y:       dw   11     ; 000B

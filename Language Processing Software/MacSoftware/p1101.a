@@ -1,0 +1,49 @@
+	pc	b
+	pwc	1
+	stav 
+
+	pc	c
+	pwc	2
+	stav
+	
+	pc e
+	pwc	3
+	stav
+
+	pc 	d
+	p	b
+	p	c
+	sub
+	stav
+
+	pc	e
+	p	e
+	p	e
+	mult
+	
+	p	d
+	div
+	stav
+
+	p	b
+	dout
+	pc	'\n'
+	aout
+	p	c
+	dout
+	pc	'\n'
+	aout
+	p	d
+	dout
+	pc	'\n'
+	aout
+	p	e
+	dout
+	pc	'\n'
+	aout
+	halt
+
+b:	dw	0   
+c:	dw	0   
+e:	dw	0    
+d: 	dw	0

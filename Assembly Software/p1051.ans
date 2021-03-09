@@ -1,0 +1,11 @@
+; #f408 3917 147 36363 0 34315
+o
+a3900t
+dw "Good Bug Bug Good"
+
+n
+o#
+ln
+SD
+g
+q

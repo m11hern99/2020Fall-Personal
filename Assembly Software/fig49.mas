@@ -1,0 +1,5 @@
+         ldc  65   ; loads ac with binary number
+         dout      ; displays 65
+         hout      ; displays 0041
+         aout      ; displays A
+         halt

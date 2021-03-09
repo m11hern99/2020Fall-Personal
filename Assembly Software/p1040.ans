@@ -1,0 +1,13 @@
+; #f408 3903 147 36363 0 10518
+;Display should look exactly like this:
+;Sum = 8
+n
+o
+a3900t
+dw "3 5" ; set up command line arguments
+
+o#
+ln
+SD
+g
+q

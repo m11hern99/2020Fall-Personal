@@ -1,0 +1,8 @@
+         !o
+         ld   x      ; 0005
+         push        ; F300
+         ld   y      ; 0006
+         mult        ; FF40
+         halt        ; FFFF
+x:       dw   7      ; 0007
+y:       dw   11     ; 000B
